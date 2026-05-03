@@ -17,6 +17,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "e1kv-ausfuellen",
     "ausschuettungsgleiche-ertraege",
     "kest-berechnen",
+    "interactive-brokers-steuer-oesterreich",
   ].map((slug) => ({
     url: `${base}/ratgeber/${slug}`,
     lastModified: new Date(),
