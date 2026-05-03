@@ -32,6 +32,14 @@ const articles = [
     keyword: "KeSt · Verlustausgleich · E1kv",
     readTime: "8 min",
   },
+  {
+    slug: "interactive-brokers-steuer-oesterreich",
+    title: "Interactive Brokers Steuererklärung Österreich: Komplette Anleitung",
+    description:
+      "Vom Activity Statement zur fertigen E1kv: Kostenbasis mit gleitendem Durchschnittspreis, Fremdwährung, US-Quellensteuer und die häufigsten Fehler bei IBKR.",
+    keyword: "IBKR · Activity Statement · §27a EStG",
+    readTime: "8 min",
+  },
 ];
 
 export default function RatgeberPage() {
