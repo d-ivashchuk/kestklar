@@ -1,15 +1,34 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { JsonLdArticle, JsonLdBreadcrumb } from "@/components/json-ld";
 
 export const metadata: Metadata = {
   title: "How to Calculate KeSt with Interactive Brokers, Scalable Capital & Co – KestKlar",
   description:
     "Step-by-step: how to calculate Austrian capital gains tax (KeSt) with non-tax-simple brokers. Includes loss netting, foreign withholding tax credit, and E1kv field mapping.",
+  alternates: {
+    canonical: "https://kestklar.at/en/ratgeber/how-to-calculate-kest",
+    languages: { de: "https://kestklar.at/ratgeber/kest-berechnen" },
+  },
 };
 
 export default function HowToCalculateKestPage() {
   return (
     <main className="max-w-2xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
+      <JsonLdArticle
+        headline="How to Calculate KeSt with Interactive Brokers, Scalable Capital & Co"
+        description="Step-by-step: how to calculate Austrian capital gains tax (KeSt) with non-tax-simple brokers."
+        url="https://kestklar.at/en/ratgeber/how-to-calculate-kest"
+        datePublished="2025-05-01"
+        inLanguage="en"
+      />
+      <JsonLdBreadcrumb
+        items={[
+          { name: "KestKlar", url: "https://kestklar.at" },
+          { name: "Guides", url: "https://kestklar.at/en/ratgeber" },
+          { name: "How to Calculate KeSt", url: "https://kestklar.at/en/ratgeber/how-to-calculate-kest" },
+        ]}
+      />
       <div className="mb-2">
         <Link href="/en/ratgeber" className="text-xs text-muted-foreground hover:text-foreground transition-colors">
           ← Guides

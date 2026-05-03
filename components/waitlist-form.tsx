@@ -1,12 +1,13 @@
 "use client";
 
 import { useState } from "react";
+import { toast } from "sonner";
 import { useLang } from "@/lib/i18n";
 
 export function WaitlistForm({ size = "default" }: { size?: "default" | "large" }) {
   const { t } = useLang();
   const [email, setEmail] = useState("");
-  const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
+  const [status, setStatus] = useState<"idle" | "loading">("idle");
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -18,17 +19,20 @@ export function WaitlistForm({ size = "default" }: { size?: "default" | "large" 
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email }),
       });
-      if (res.ok) { setStatus("success"); setEmail(""); }
-      else setStatus("error");
-    } catch { setStatus("error"); }
-  }
 
-  if (status === "success") {
-    return (
-      <div className="border border-green-200 bg-green-50 px-4 py-3 text-sm text-green-700">
-        {t.waitlistSuccess}
-      </div>
-    );
+      if (res.status === 409) {
+        toast.info("Du bist bereits auf der Warteliste 👍");
+      } else if (res.ok) {
+        toast.success("Du bist dabei! Wir melden uns bald.");
+        setEmail("");
+      } else {
+        toast.error("Etwas ist schiefgelaufen. Bitte versuche es nochmal.");
+      }
+    } catch {
+      toast.error("Etwas ist schiefgelaufen. Bitte versuche es nochmal.");
+    } finally {
+      setStatus("idle");
+    }
   }
 
   return (

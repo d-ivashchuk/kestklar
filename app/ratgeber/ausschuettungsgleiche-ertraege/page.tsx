@@ -1,15 +1,34 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { JsonLdArticle, JsonLdBreadcrumb } from "@/components/json-ld";
 
 export const metadata: Metadata = {
   title: "Ausschüttungsgleiche Erträge: ETF-Steuer Österreich erklärt – KestKlar",
   description:
     "Was sind ausschüttungsgleiche Erträge bei ETFs? Wie berechnet man sie für die österreichische Steuererklärung? ÖEKB, Meldefonds und E1kv Zeile 892 einfach erklärt.",
+  alternates: {
+    canonical: "https://kestklar.at/ratgeber/ausschuettungsgleiche-ertraege",
+    languages: { en: "https://kestklar.at/en/ratgeber/deemed-distributions" },
+  },
 };
 
 export default function AgEPage() {
   return (
     <main className="max-w-2xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
+      <JsonLdArticle
+        headline="Ausschüttungsgleiche Ertr��ge: ETF-Steuer Österreich erkl��rt"
+        description="Was sind ausschüttungsgleiche Erträge bei ETFs? Wie berechnet man sie für die österreichische Steuererklärung?"
+        url="https://kestklar.at/ratgeber/ausschuettungsgleiche-ertraege"
+        datePublished="2025-05-01"
+        inLanguage="de"
+      />
+      <JsonLdBreadcrumb
+        items={[
+          { name: "KestKlar", url: "https://kestklar.at" },
+          { name: "Ratgeber", url: "https://kestklar.at/ratgeber" },
+          { name: "Ausschüttungsgleiche Erträge", url: "https://kestklar.at/ratgeber/ausschuettungsgleiche-ertraege" },
+        ]}
+      />
       <div className="mb-2">
         <Link href="/ratgeber" className="text-xs text-muted-foreground hover:text-foreground transition-colors">
           ← Ratgeber

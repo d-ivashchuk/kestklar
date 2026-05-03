@@ -1,15 +1,34 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { JsonLdArticle, JsonLdBreadcrumb } from "@/components/json-ld";
 
 export const metadata: Metadata = {
   title: "Deemed Distributions from ETFs: Austrian Tax Explained – KestKlar",
   description:
     "What are deemed distributions (ausschüttungsgleiche Erträge) from ETFs? How to calculate them for the Austrian tax return. ÖEKB, reporting funds, and E1kv field KZ 937 explained.",
+  alternates: {
+    canonical: "https://kestklar.at/en/ratgeber/deemed-distributions",
+    languages: { de: "https://kestklar.at/ratgeber/ausschuettungsgleiche-ertraege" },
+  },
 };
 
 export default function DeemedDistributionsPage() {
   return (
     <main className="max-w-2xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
+      <JsonLdArticle
+        headline="Deemed Distributions from ETFs: Austrian Tax Explained"
+        description="What are deemed distributions from ETFs? How to calculate them for the Austrian tax return."
+        url="https://kestklar.at/en/ratgeber/deemed-distributions"
+        datePublished="2025-05-01"
+        inLanguage="en"
+      />
+      <JsonLdBreadcrumb
+        items={[
+          { name: "KestKlar", url: "https://kestklar.at" },
+          { name: "Guides", url: "https://kestklar.at/en/ratgeber" },
+          { name: "Deemed Distributions", url: "https://kestklar.at/en/ratgeber/deemed-distributions" },
+        ]}
+      />
       <div className="mb-2">
         <Link href="/en/ratgeber" className="text-xs text-muted-foreground hover:text-foreground transition-colors">
           ← Guides

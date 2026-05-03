@@ -1,15 +1,34 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { JsonLdArticle, JsonLdBreadcrumb } from "@/components/json-ld";
 
 export const metadata: Metadata = {
   title: "How to Fill in the E1kv: Step-by-Step Guide for Investors – KestKlar",
   description:
     "Step-by-step guide to the E1kv supplementary form for capital income in Austria. Field numbers for dividends, capital gains, ETF income, and losses in FinanzOnline.",
+  alternates: {
+    canonical: "https://kestklar.at/en/ratgeber/e1kv-guide",
+    languages: { de: "https://kestklar.at/ratgeber/e1kv-ausfuellen" },
+  },
 };
 
 export default function E1kvGuidePage() {
   return (
     <main className="max-w-2xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
+      <JsonLdArticle
+        headline="How to Fill in the E1kv: Step-by-Step Guide for Investors"
+        description="Step-by-step guide to the E1kv supplementary form for capital income in Austria."
+        url="https://kestklar.at/en/ratgeber/e1kv-guide"
+        datePublished="2025-05-01"
+        inLanguage="en"
+      />
+      <JsonLdBreadcrumb
+        items={[
+          { name: "KestKlar", url: "https://kestklar.at" },
+          { name: "Guides", url: "https://kestklar.at/en/ratgeber" },
+          { name: "E1kv Guide", url: "https://kestklar.at/en/ratgeber/e1kv-guide" },
+        ]}
+      />
       <div className="mb-2">
         <Link href="/en/ratgeber" className="text-xs text-muted-foreground hover:text-foreground transition-colors">
           ← Guides

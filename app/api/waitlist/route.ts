@@ -16,6 +16,17 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ success: true });
     }
 
+    // Check if already signed up
+    const findRes = await fetch(`https://app.loops.so/api/v1/contacts/find?email=${encodeURIComponent(email)}`, {
+      headers: { Authorization: `Bearer ${loopsApiKey}` },
+    });
+    if (findRes.ok) {
+      const found = await findRes.json();
+      if (Array.isArray(found) && found.length > 0) {
+        return NextResponse.json({ error: "already_subscribed" }, { status: 409 });
+      }
+    }
+
     const res = await fetch("https://app.loops.so/api/v1/contacts/create", {
       method: "POST",
       headers: {
@@ -38,6 +49,19 @@ export async function POST(req: NextRequest) {
         { status: 500 }
       );
     }
+
+    // Send welcome transactional email
+    await fetch("https://app.loops.so/api/v1/transactional", {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${loopsApiKey}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        transactionalId: "cmoqa4dje3ni50i0g5jl7xzhe",
+        email,
+      }),
+    });
 
     return NextResponse.json({ success: true });
   } catch (err) {

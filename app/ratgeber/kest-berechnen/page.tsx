@@ -1,15 +1,34 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { JsonLdArticle, JsonLdBreadcrumb } from "@/components/json-ld";
 
 export const metadata: Metadata = {
   title: "KeSt berechnen bei Interactive Brokers, Scalable Capital & Co – KestKlar",
   description:
     "Schritt-für-Schritt: Wie du die österreichische Kapitalertragsteuer bei nicht-steuereinfachen Brokern berechnest. Mit Verlustausgleich, Quellensteuer-Anrechnung und E1kv-Zeilen.",
+  alternates: {
+    canonical: "https://kestklar.at/ratgeber/kest-berechnen",
+    languages: { en: "https://kestklar.at/en/ratgeber/how-to-calculate-kest" },
+  },
 };
 
 export default function KestBerechnenPage() {
   return (
     <main className="max-w-2xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
+      <JsonLdArticle
+        headline="KeSt berechnen bei nicht-steuereinfachen Brokern"
+        description="Schritt-für-Schritt: Wie du die österreichische Kapitalertragsteuer bei nicht-steuereinfachen Brokern berechnest."
+        url="https://kestklar.at/ratgeber/kest-berechnen"
+        datePublished="2025-05-01"
+        inLanguage="de"
+      />
+      <JsonLdBreadcrumb
+        items={[
+          { name: "KestKlar", url: "https://kestklar.at" },
+          { name: "Ratgeber", url: "https://kestklar.at/ratgeber" },
+          { name: "KeSt berechnen", url: "https://kestklar.at/ratgeber/kest-berechnen" },
+        ]}
+      />
       <div className="mb-2">
         <Link href="/ratgeber" className="text-xs text-muted-foreground hover:text-foreground transition-colors">
           ← Ratgeber

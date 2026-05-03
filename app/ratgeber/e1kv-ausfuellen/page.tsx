@@ -1,15 +1,34 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { JsonLdArticle, JsonLdBreadcrumb } from "@/components/json-ld";
 
 export const metadata: Metadata = {
   title: "E1kv ausfüllen: Anleitung für Kapitalvermögen – KestKlar",
   description:
     "Schritt-für-Schritt-Anleitung zur Beilage E1kv für Einkünfte aus Kapitalvermögen. Kennzahlen für Dividenden, Kursgewinne, ETF-Erträge und Verluste in FinanzOnline.",
+  alternates: {
+    canonical: "https://kestklar.at/ratgeber/e1kv-ausfuellen",
+    languages: { en: "https://kestklar.at/en/ratgeber/e1kv-guide" },
+  },
 };
 
 export default function E1kvPage() {
   return (
     <main className="max-w-2xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
+      <JsonLdArticle
+        headline="E1kv ausfüllen: Anleitung für Kapitalvermögen"
+        description="Schritt-für-Schritt-Anleitung zur Beilage E1kv für Einkünfte aus Kapitalvermögen in Österreich."
+        url="https://kestklar.at/ratgeber/e1kv-ausfuellen"
+        datePublished="2025-05-01"
+        inLanguage="de"
+      />
+      <JsonLdBreadcrumb
+        items={[
+          { name: "KestKlar", url: "https://kestklar.at" },
+          { name: "Ratgeber", url: "https://kestklar.at/ratgeber" },
+          { name: "E1kv ausfüllen", url: "https://kestklar.at/ratgeber/e1kv-ausfuellen" },
+        ]}
+      />
       <div className="mb-2">
         <Link href="/ratgeber" className="text-xs text-muted-foreground hover:text-foreground transition-colors">
           ← Ratgeber

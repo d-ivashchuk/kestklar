@@ -4,6 +4,7 @@ import { LangProvider } from "@/lib/i18n";
 import { Nav } from "@/components/nav";
 import { Footer } from "@/components/footer";
 import { JsonLdOrganization, JsonLdWebApplication, JsonLdFaq } from "@/components/json-ld";
+import { Toaster } from "sonner";
 import "./globals.css";
 
 const inter = Inter({
@@ -17,7 +18,6 @@ export const metadata: Metadata = {
   description:
     "KeSt berechnen für Interactive Brokers, Scalable Capital & Co. PDF hochladen, ausschüttungsgleiche ETF-Erträge automatisch via ÖEKB, Verlustausgleich, exakte E1kv-Zeilen. Kein Steuerberater nötig.",
   metadataBase: new URL("https://kestklar.at"),
-  alternates: { canonical: "https://kestklar.at" },
   keywords: [
     "KeSt berechnen Österreich",
     "Kapitalertragsteuer Österreich",
@@ -37,11 +37,19 @@ export const metadata: Metadata = {
     type: "website",
     locale: "de_AT",
     siteName: "KestKlar",
+    url: "https://kestklar.at",
   },
   twitter: {
     card: "summary_large_image",
     title: "KestKlar — KeSt berechnen in 10 Minuten",
     description: "Austrian investor tax calculated correctly. Upload your broker PDF, get exact E1kv lines.",
+  },
+  alternates: {
+    canonical: "https://kestklar.at",
+    languages: {
+      "de-AT": "https://kestklar.at",
+      "en": "https://kestklar.at/en/ratgeber",
+    },
   },
   robots: { index: true, follow: true },
   icons: {
@@ -63,6 +71,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <Nav />
           {children}
           <Footer />
+          <Toaster position="bottom-center" richColors />
         </LangProvider>
       </body>
     </html>

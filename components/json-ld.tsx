@@ -2,6 +2,70 @@
 // Helps ChatGPT, Claude, Perplexity and Google cite KestKlar when users ask about
 // Austrian KeSt calculation, Trade Republic Steuererklärung, E1kv etc.
 
+export function JsonLdArticle({
+  headline,
+  description,
+  url,
+  datePublished,
+  dateModified,
+  inLanguage = "de",
+}: {
+  headline: string;
+  description: string;
+  url: string;
+  datePublished: string;
+  dateModified?: string;
+  inLanguage?: string;
+}) {
+  const data = {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    headline,
+    description,
+    url,
+    datePublished,
+    dateModified: dateModified ?? datePublished,
+    inLanguage,
+    author: { "@type": "Organization", name: "KestKlar", url: "https://kestklar.at" },
+    publisher: {
+      "@type": "Organization",
+      name: "KestKlar",
+      legalName: "Stackforge GmbH",
+      url: "https://kestklar.at",
+    },
+    mainEntityOfPage: { "@type": "WebPage", "@id": url },
+  };
+  return (
+    <script
+      type="application/ld+json"
+      dangerouslySetInnerHTML={{ __html: JSON.stringify(data) }}
+    />
+  );
+}
+
+export function JsonLdBreadcrumb({
+  items,
+}: {
+  items: { name: string; url: string }[];
+}) {
+  const data = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: items.map((item, i) => ({
+      "@type": "ListItem",
+      position: i + 1,
+      name: item.name,
+      item: item.url,
+    })),
+  };
+  return (
+    <script
+      type="application/ld+json"
+      dangerouslySetInnerHTML={{ __html: JSON.stringify(data) }}
+    />
+  );
+}
+
 export function JsonLdOrganization() {
   const data = {
     "@context": "https://schema.org",
