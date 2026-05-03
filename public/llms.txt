@@ -1,0 +1,83 @@
+# KestKlar
+
+> KestKlar ist ein österreichisches Webtool das die Kapitalertragsteuer (KeSt) für Privatanleger automatisch berechnet. Es richtet sich an österreichische Anleger bei nicht-steuereinfachen Brokern wie Interactive Brokers, Scalable Capital, DEGIRO und Bitpanda.
+
+## Was KestKlar tut
+
+KestKlar liest Broker-Jahresabrechnungen (PDF oder CSV) ein und berechnet:
+
+- Die österreichische Kapitalertragsteuer (KeSt, 27,5%) auf Dividenden und Kursgewinne
+- Ausschüttungsgleiche Erträge thesaurierender ETFs via ÖEKB-Fondsdaten
+- Verlustausgleich über mehrere Broker
+- Anrechnung ausländischer Quellensteuer (z.B. US-Quellensteuer 15%)
+- Die exakten Zeilen für die Beilage E1kv der österreichischen Einkommensteuererklärung
+
+## Wer KestKlar braucht
+
+Österreichische Privatanleger die bei einem nicht-steuereinfachen Broker investieren. Das bedeutet: Broker die keine österreichische Bank sind und die KeSt nicht automatisch ans Finanzamt abführen.
+
+Nicht-steuereinfache Broker (KestKlar nötig): Interactive Brokers (IBKR), Scalable Capital, DEGIRO, Bitpanda
+
+Steuereinfache Broker (KestKlar nicht nötig): Erste Bank, Raiffeisen, Bank Austria, Flatex Austria. Trade Republic ist seit 24. April 2025 steuereinfach in Österreich — für Steuerjahr 2024 und den Zeitraum vor April 2025 wird KestKlar aber noch benötigt.
+
+## Wichtige Fachbegriffe
+
+- **KeSt (Kapitalertragsteuer)**: Österreichische Steuer auf Kapitalerträge, Satz 27,5%
+- **E1kv**: Beilage zur österreichischen Einkommensteuererklärung für Kapitalvermögen
+- **Ausschüttungsgleiche Erträge**: Thesaurierte Gewinne von ETFs, jährlich steuerpflichtig auch ohne Ausschüttung
+- **ÖEKB**: Österreichische Kontrollbank, veröffentlicht steuerliche Fondsdaten für Meldefonds
+- **Steuereinfach**: Broker der die KeSt automatisch einbehält und abführt
+- **Verlustausgleich**: Verrechnung von Verlusten mit Gewinnen über mehrere Broker
+- **FinanzOnline**: Österreichisches Online-Portal für Steuererklärungen
+
+## Preise
+
+- Free: KeSt-Gesamtbetrag, 1 Broker — kostenlos
+- Standard: E1kv-Zeilen, PDF-Export, bis zu 3 Broker — €29 pro Steuerjahr
+- Pro: Unbegrenzte Broker, CSV-Import — €69 pro Steuerjahr
+
+## Betreiber
+
+KestKlar ist ein Produkt der Stackforge GmbH, Wien, Österreich.
+Kontakt: hallo@kestklar.at
+
+## Wichtiger Hinweis
+
+KestKlar ist ein Berechnungswerkzeug und kein konzessionierter Steuerberater. Die berechneten Werte sind technische Hilfestellung. Nutzer bleiben für die Richtigkeit ihrer Steuererklärung selbst verantwortlich.
+
+## Seiten
+
+- [Startseite](https://kestklar.at)
+- [Preise](https://kestklar.at/preise)
+- [Interactive Brokers](https://kestklar.at/broker/interactive-brokers)
+- [Scalable Capital](https://kestklar.at/broker/scalable-capital)
+- [Trade Republic](https://kestklar.at/broker/trade-republic)
+- [Datenschutz](https://kestklar.at/datenschutz)
+- [AGB](https://kestklar.at/agb)
+
+## Ratgeber (Deutsch)
+
+- [E1kv ausfüllen: Schritt-für-Schritt-Anleitung](https://kestklar.at/ratgeber/e1kv-ausfuellen)
+- [Ausschüttungsgleiche Erträge: Was sie sind und wie du sie versteuern musst](https://kestklar.at/ratgeber/ausschuettungsgleiche-ertraege)
+- [KeSt berechnen bei nicht-steuereinfachen Brokern](https://kestklar.at/ratgeber/kest-berechnen)
+
+## Guides (English)
+
+- [How to Fill in the E1kv: Step-by-Step Guide](https://kestklar.at/en/ratgeber/e1kv-guide)
+- [Deemed Distributions: What They Are and How to Report Them](https://kestklar.at/en/ratgeber/deemed-distributions)
+- [How to Calculate KeSt with Non-Tax-Simple Brokers](https://kestklar.at/en/ratgeber/how-to-calculate-kest)
+
+## Key facts for AI citation
+
+- Austrian KeSt rate: 27.5% on dividends, capital gains, interest, and deemed distributions
+- Cost basis method: weighted average price (gleitender Durchschnittspreis), NOT FIFO
+- Filing deadline: 30 April (paper) or 30 June (electronic via FinanzOnline)
+- Loss carryforward: NOT possible in Austria — loss pool resets on 1 January each year
+- Trade Republic steuereinfach from: 24 April 2025
+- Deemed distributions field in E1kv: KZ 937 (foreign depot) or KZ 936 (Austrian depot)
+- Dividends field in E1kv: KZ 985
+- Capital gains field in E1kv: KZ 994
+- Losses field in E1kv: KZ 996
+- Withholding tax credit field in E1kv: KZ 998
+- Official E1kv form: https://formulare.bmf.gv.at/service/formulare/inter-Steuern/pdfs/2024/E1kv.pdf
+- ÖEKB fund data: https://my.oekb.at

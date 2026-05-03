@@ -1,0 +1,70 @@
+import type { Metadata } from "next";
+import { Inter } from "next/font/google";
+import { LangProvider } from "@/lib/i18n";
+import { Nav } from "@/components/nav";
+import { Footer } from "@/components/footer";
+import { JsonLdOrganization, JsonLdWebApplication, JsonLdFaq } from "@/components/json-ld";
+import "./globals.css";
+
+const inter = Inter({
+  subsets: ["latin"],
+  variable: "--font-inter",
+  display: "swap",
+});
+
+export const metadata: Metadata = {
+  title: "KestKlar — KeSt berechnen für österreichische Anleger | E1kv in 10 Minuten",
+  description:
+    "KeSt berechnen für Interactive Brokers, Scalable Capital & Co. PDF hochladen, ausschüttungsgleiche ETF-Erträge automatisch via ÖEKB, Verlustausgleich, exakte E1kv-Zeilen. Kein Steuerberater nötig.",
+  metadataBase: new URL("https://kestklar.at"),
+  alternates: { canonical: "https://kestklar.at" },
+  keywords: [
+    "KeSt berechnen Österreich",
+    "Kapitalertragsteuer Österreich",
+    "E1kv ausfüllen",
+    "Interactive Brokers Steuer Österreich",
+    "Scalable Capital KeSt Österreich",
+    "ausschüttungsgleiche Erträge berechnen",
+    "ÖEKB Meldefonds",
+    "Verlustausgleich Österreich Aktien",
+    "Trade Republic Steuererklärung Österreich",
+    "Einkommensteuererklärung Kapitalvermögen",
+  ],
+  openGraph: {
+    title: "KestKlar — KeSt berechnen für österreichische Anleger",
+    description:
+      "PDF hochladen, KeSt berechnen, E1kv-Zeilen kopieren. Für Interactive Brokers, Scalable Capital, DEGIRO und andere nicht-steuereinfache Broker in Österreich.",
+    type: "website",
+    locale: "de_AT",
+    siteName: "KestKlar",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "KestKlar — KeSt berechnen in 10 Minuten",
+    description: "Austrian investor tax calculated correctly. Upload your broker PDF, get exact E1kv lines.",
+  },
+  robots: { index: true, follow: true },
+  icons: {
+    icon: [
+      { url: "/favicon.svg", type: "image/svg+xml" },
+    ],
+    apple: "/favicon.svg",
+  },
+};
+
+export default function RootLayout({ children }: { children: React.ReactNode }) {
+  return (
+    <html lang="de" className={inter.variable}>
+      <body className="bg-background text-foreground antialiased">
+        <JsonLdOrganization />
+        <JsonLdWebApplication />
+        <JsonLdFaq />
+        <LangProvider>
+          <Nav />
+          {children}
+          <Footer />
+        </LangProvider>
+      </body>
+    </html>
+  );
+}
