@@ -39,10 +39,8 @@ export function Nav() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  const currentLang = detectLangFromPath(pathname);
-
   function handleLangSwitch(target: "de" | "en") {
-    if (target === currentLang) return;
+    if (target === lang) return;
     const mapped = ROUTE_MAP[pathname];
     if (mapped) {
       router.push(mapped);
@@ -54,8 +52,8 @@ export function Nav() {
   }
 
   // Ratgeber label and href adapt to current language.
-  const ratgeberHref = currentLang === "en" ? "/en/ratgeber" : "/ratgeber";
-  const ratgeberLabel = currentLang === "en" ? "Guides" : "Ratgeber";
+  const ratgeberHref = lang === "en" ? "/en/ratgeber" : "/ratgeber";
+  const ratgeberLabel = lang === "en" ? "Guides" : "Ratgeber";
 
   return (
     <header
@@ -96,13 +94,13 @@ export function Nav() {
           <div className="flex items-center border border-border text-xs">
             <button
               onClick={() => handleLangSwitch("de")}
-              className={`px-2.5 py-1 transition-colors ${currentLang === "de" ? "bg-foreground text-background" : "text-muted-foreground hover:text-foreground"}`}
+              className={`px-2.5 py-1 transition-colors ${lang === "de" ? "bg-foreground text-background" : "text-muted-foreground hover:text-foreground"}`}
             >
               DE
             </button>
             <button
               onClick={() => handleLangSwitch("en")}
-              className={`px-2.5 py-1 transition-colors ${currentLang === "en" ? "bg-foreground text-background" : "text-muted-foreground hover:text-foreground"}`}
+              className={`px-2.5 py-1 transition-colors ${lang === "en" ? "bg-foreground text-background" : "text-muted-foreground hover:text-foreground"}`}
             >
               EN
             </button>
