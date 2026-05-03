@@ -18,6 +18,10 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "ausschuettungsgleiche-ertraege",
     "kest-berechnen",
     "interactive-brokers-steuer-oesterreich",
+    "degiro-steuer-oesterreich",
+    "scalable-capital-steuer-oesterreich",
+    "verlustausgleich-oesterreich",
+    "etf-meldefonds-pruefen",
   ].map((slug) => ({
     url: `${base}/ratgeber/${slug}`,
     lastModified: new Date(),
