@@ -1,0 +1,68 @@
+name = "kestklar-workers"
+main = "src/index.ts"
+compatibility_date = "2025-04-01"
+compatibility_flags = ["nodejs_compat"]
+
+# EU jurisdiction for Workers placement (where supported)
+# routes / triggers configured via dashboard or `wrangler.toml` overrides per env
+
+[vars]
+OEKB_USER_AGENT = "kestklar-bot/0.1 (+https://kestklar.at)"
+
+# ── Bindings ────────────────────────────────────────────────────────────
+
+[[r2_buckets]]
+binding = "UPLOADS"
+bucket_name = "kestklar-uploads"
+jurisdiction = "eu"
+
+[[queues.consumers]]
+queue = "parse-uploads"
+max_batch_size = 1
+max_batch_timeout = 5
+max_retries = 3
+dead_letter_queue = "parse-uploads-dlq"
+
+[[queues.consumers]]
+queue = "fetch-oekb"
+max_batch_size = 1
+max_batch_timeout = 5
+max_retries = 3
+dead_letter_queue = "fetch-oekb-dlq"
+
+[[queues.producers]]
+queue = "fetch-oekb"
+binding = "FETCH_OEKB_QUEUE"
+
+[[hyperdrive]]
+binding = "DB"
+id = "PLACEHOLDER_HYPERDRIVE_ID"
+
+[[kv_namespaces]]
+binding = "RATE_LIMIT"
+id = "PLACEHOLDER_KV_ID"
+
+# ── Workflows ───────────────────────────────────────────────────────────
+
+[[workflows]]
+name = "parse-broker-upload"
+binding = "PARSE_BROKER_UPLOAD"
+class_name = "ParseBrokerUploadWorkflow"
+
+[[workflows]]
+name = "fetch-oekb-data"
+binding = "FETCH_OEKB_DATA"
+class_name = "FetchOekbDataWorkflow"
+
+# ── Cron Triggers (ÖEKB cache pre-warm during filing season) ────────────
+
+[triggers]
+crons = ["0 3 * 3-6 *"]  # 03:00 UTC daily Mar–Jun
+
+# ── Observability ───────────────────────────────────────────────────────
+
+[observability]
+enabled = true
+
+[observability.logs]
+enabled = true

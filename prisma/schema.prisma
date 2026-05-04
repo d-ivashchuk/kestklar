@@ -1,0 +1,154 @@
+// Prisma schema for KestKlar.
+// All Decimal precision matters for KeSt math — use Prisma Decimal everywhere
+// monetary or per-unit values appear, never Float.
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum Plan {
+  FREE
+  STANDARD
+  PRO
+}
+
+enum Broker {
+  IBKR
+  SCALABLE
+  DEGIRO
+  TRADE_REPUBLIC
+  MANUAL
+}
+
+enum UploadStatus {
+  PENDING
+  PARSING
+  DONE
+  FAILED
+}
+
+enum TransactionType {
+  DIVIDEND
+  CAPITAL_GAIN
+  CAPITAL_LOSS
+  INTEREST
+  DEEMED_DISTRIBUTION
+  WITHHOLDING_TAX
+}
+
+model User {
+  id               String   @id // Clerk user ID
+  email            String   @unique
+  plan             Plan     @default(FREE)
+  stripeCustomerId String?  @unique
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+
+  uploads      BrokerUpload[]
+  transactions Transaction[]
+  positions    Position[]
+  results      TaxCalculationResult[]
+}
+
+model BrokerUpload {
+  id           String       @id @default(cuid())
+  userId       String
+  broker       Broker
+  taxYear      Int
+  filename     String
+  status       UploadStatus @default(PENDING)
+  parsedAt     DateTime?
+  errorMessage String?
+  createdAt    DateTime     @default(now())
+
+  user         User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+  transactions Transaction[]
+
+  @@index([userId, taxYear])
+  @@index([status])
+}
+
+model Transaction {
+  id                 String          @id @default(cuid())
+  uploadId           String
+  userId             String
+  type               TransactionType
+  isin               String?
+  date               DateTime
+  quantity           Decimal?        @db.Decimal(28, 10)
+  priceEur           Decimal?        @db.Decimal(28, 10)
+  grossAmountEur     Decimal         @db.Decimal(28, 10)
+  withholdingTaxEur  Decimal         @default(0) @db.Decimal(28, 10)
+  currency           String
+  fxRate             Decimal         @db.Decimal(28, 10)
+  fxDate             DateTime
+  createdAt          DateTime        @default(now())
+
+  upload BrokerUpload @relation(fields: [uploadId], references: [id], onDelete: Cascade)
+  user   User         @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId, isin, date])
+  @@index([uploadId])
+}
+
+model Position {
+  id              String   @id @default(cuid())
+  userId          String
+  isin            String
+  taxYear         Int
+  quantityHeld    Decimal  @db.Decimal(28, 10)
+  avgCostBasisEur Decimal  @db.Decimal(28, 10)
+  lastUpdated     DateTime @updatedAt
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, isin, taxYear])
+  @@index([userId, taxYear])
+}
+
+// Read-through cache. Source of truth is always my.oekb.at.
+// Append-only — never UPDATE a row, INSERT a new one with newer fetchedAt.
+// See ARCHITECTURE.md §15.5 (audit trail).
+model OekbFundData {
+  id                        String   @id @default(cuid())
+  isin                      String
+  taxYear                   Int
+  reportingDate             DateTime
+  deemedDistributionPerUnit Decimal  @db.Decimal(28, 10)
+  currency                  String
+  fxRateOnReportingDate     Decimal  @db.Decimal(28, 10)
+  fetchedAt                 DateTime @default(now())
+  source                    String   // canonical ÖEKB record URL
+  rawJson                   Json     // full scraped payload, for §15.5
+
+  @@index([isin, taxYear, fetchedAt])
+}
+
+model TaxCalculationResult {
+  id            String   @id @default(cuid())
+  userId        String
+  taxYear       Int
+  kz937         Decimal  @db.Decimal(28, 2)
+  kz936         Decimal  @db.Decimal(28, 2)
+  kz985         Decimal  @db.Decimal(28, 2)
+  kz994         Decimal  @db.Decimal(28, 2)
+  kz996         Decimal  @db.Decimal(28, 2)
+  kz998         Decimal  @db.Decimal(28, 2)
+  grossKest     Decimal  @db.Decimal(28, 2)
+  netKest       Decimal  @db.Decimal(28, 2)
+  calculatedAt  DateTime @default(now())
+  warnings      Json     // CalculationWarning[]
+  // Snapshot of the (ISIN, taxYear) ÖEKB rows used for this calc.
+  // Lets us reproduce a result even after the cache is refreshed.
+  oekbSourceRefs Json    // Array<{ isin, taxYear, fetchedAt, source }>
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, taxYear, calculatedAt])
+  @@index([userId, taxYear])
+}

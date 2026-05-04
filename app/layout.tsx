@@ -1,9 +1,6 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import { LangProvider } from "@/lib/i18n";
-import { Nav } from "@/components/nav";
-import { Footer } from "@/components/footer";
-import { JsonLdOrganization, JsonLdWebApplication, JsonLdFaq } from "@/components/json-ld";
 import { Toaster } from "sonner";
 import "./globals.css";
 
@@ -48,14 +45,12 @@ export const metadata: Metadata = {
     canonical: "https://kestklar.at",
     languages: {
       "de-AT": "https://kestklar.at",
-      "en": "https://kestklar.at/en/ratgeber",
+      en: "https://kestklar.at/en/ratgeber",
     },
   },
   robots: { index: true, follow: true },
   icons: {
-    icon: [
-      { url: "/favicon.svg", type: "image/svg+xml" },
-    ],
+    icon: [{ url: "/favicon.svg", type: "image/svg+xml" }],
     apple: "/favicon.svg",
   },
 };
@@ -64,13 +59,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="de" className={inter.variable}>
       <body className="bg-background text-foreground antialiased">
-        <JsonLdOrganization />
-        <JsonLdWebApplication />
-        <JsonLdFaq />
         <LangProvider>
-          <Nav />
           {children}
-          <Footer />
           <Toaster position="bottom-center" richColors />
         </LangProvider>
       </body>
