@@ -8,6 +8,7 @@ export const metadata: Metadata = {
     "Schritt-für-Schritt: So versteuerst du dein Interactive Brokers Depot in Österreich. Activity Statement lesen, KeSt berechnen, E1kv-Kennzahlen korrekt ausfüllen. Mit offiziellen BMF-Quellen.",
   alternates: {
     canonical: "https://kestklar.at/ratgeber/interactive-brokers-steuer-oesterreich",
+    languages: { en: "https://kestklar.at/en/ratgeber/interactive-brokers-austria-tax" },
   },
 };
 

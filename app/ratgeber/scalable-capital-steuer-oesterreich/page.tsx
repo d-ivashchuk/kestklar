@@ -8,6 +8,7 @@ export const metadata: Metadata = {
     "Vollbank-Lizenz, Depotmigration weg von Baader, Steuerreport von KPMG: Scalable Capital ist (noch) nicht steuereinfach in Österreich. Vollständige Anleitung für E1kv 2024 und 2025 mit allen rechtlichen Quellen.",
   alternates: {
     canonical: "https://kestklar.at/ratgeber/scalable-capital-steuer-oesterreich",
+    languages: { en: "https://kestklar.at/en/ratgeber/scalable-capital-austria-tax" },
   },
 };
 

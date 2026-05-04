@@ -8,6 +8,7 @@ export const metadata: Metadata = {
     "Welche Kapitalverluste lassen sich mit welchen Gewinnen verrechnen? Komplette Übersicht zu §27 Abs 8 EStG mit Buckets, Beispielen, Krypto-Regeln und der Steuerreporting-Verordnung 2025.",
   alternates: {
     canonical: "https://kestklar.at/ratgeber/verlustausgleich-oesterreich",
+    languages: { en: "https://kestklar.at/en/ratgeber/austrian-loss-netting" },
   },
 };
 

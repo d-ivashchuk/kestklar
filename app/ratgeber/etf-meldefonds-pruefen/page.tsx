@@ -8,6 +8,7 @@ export const metadata: Metadata = {
     "So prüfst du, ob dein ETF ein Meldefonds ist und wie du die steuerlichen Daten auf my.oekb.at findest. Mit Pauschalbesteuerungs-Formel nach §186 InvFG für Schwarzfonds und allen Fristen.",
   alternates: {
     canonical: "https://kestklar.at/ratgeber/etf-meldefonds-pruefen",
+    languages: { en: "https://kestklar.at/en/ratgeber/etf-reporting-funds-check" },
   },
 };
 

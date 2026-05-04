@@ -33,6 +33,11 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "e1kv-guide",
     "deemed-distributions",
     "how-to-calculate-kest",
+    "interactive-brokers-austria-tax",
+    "degiro-austria-tax",
+    "scalable-capital-austria-tax",
+    "austrian-loss-netting",
+    "etf-reporting-funds-check",
   ].map((slug) => ({
     url: `${base}/en/ratgeber/${slug}`,
     lastModified: new Date(),

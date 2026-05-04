@@ -8,6 +8,7 @@ export const metadata: Metadata = {
     "DEGIRO Austria existiert nicht mehr. Wer DEGIRO heute nutzt, nutzt DEGIRO Deutschland — und ist nicht steuereinfach. Schritt-für-Schritt-Anleitung für E1kv mit offiziellen BMF-Quellen.",
   alternates: {
     canonical: "https://kestklar.at/ratgeber/degiro-steuer-oesterreich",
+    languages: { en: "https://kestklar.at/en/ratgeber/degiro-austria-tax" },
   },
 };
 
