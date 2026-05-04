@@ -515,6 +515,22 @@ If a smaller subset must ship before launch:
 
 Everything else (PDF cross-parse, weekly canaries, second FX source) is Phase 2 once real volume justifies it.
 
+## 16. Operator Automation (MCP)
+
+Every vendor in this stack except Loops.so ships an official Model Context Protocol server. Per-vendor automation playbooks, scopes, and caveats live in [`mcp/`](./mcp/):
+
+- [`mcp/README.md`](./mcp/README.md) — index, operating principles, quick setup
+- [`mcp/vercel.md`](./mcp/vercel.md) — deploys, build/runtime logs
+- [`mcp/cloudflare.md`](./mcp/cloudflare.md) — Bindings, Observability, Logpush, Browser, Workers Builds
+- [`mcp/neon.md`](./mcp/neon.md) — schema migrations on branches, cache health, slow-query digest
+- [`mcp/clerk.md`](./mcp/clerk.md) — docs/SDK helper, future MCP-authed endpoints
+- [`mcp/stripe.md`](./mcp/stripe.md) — support triage, partner coupons, MRR digest
+- [`mcp/sentry.md`](./mcp/sentry.md) — alert → diagnosis loop, ÖEKB drift cache-freeze trigger
+- [`mcp/posthog.md`](./mcp/posthog.md) — feature-flag rollouts, funnel monitoring
+- [`mcp/github.md`](./mcp/github.md) — PR hygiene, CI triage, regression PRs
+
+Loops.so has no first-party MCP server; we drive it via REST.
+
 ## Appendix — External References
 
 - BMF E1kv 2024 form: formulare.bmf.gv.at/service/formulare/inter-Steuern/pdfs/2024/E1kv.pdf
