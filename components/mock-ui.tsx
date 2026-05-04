@@ -1,6 +1,22 @@
+"use client";
+
+import { useInView } from "@/lib/use-in-view";
+import { CountUp } from "./count-up";
+
 export function MockUI() {
+  const { ref, inView } = useInView<HTMLDivElement>({ threshold: 0.2 });
+
+  const brokers = [
+    { name: "Trade Republic", rows: 42 },
+    { name: "Scalable Capital", rows: 18 },
+    { name: "IBKR", rows: 7 },
+  ];
+
   return (
-    <div className="w-full max-w-4xl mx-auto border border-border bg-background shadow-[0_8px_40px_rgba(0,0,0,0.08)]">
+    <div
+      ref={ref}
+      className="w-full max-w-4xl mx-auto border border-border bg-background shadow-[0_8px_40px_rgba(0,0,0,0.08)]"
+    >
       {/* Window chrome */}
       <div className="border-b border-border px-4 py-3 flex items-center gap-2 bg-secondary">
         <div className="flex gap-1.5">
@@ -19,18 +35,31 @@ export function MockUI() {
           <p className="text-xs font-medium text-muted-foreground uppercase tracking-wider mb-3">
             Meine Broker
           </p>
-          {[
-            { name: "Trade Republic", rows: 42 },
-            { name: "Scalable Capital", rows: 18 },
-            { name: "IBKR", rows: 7 },
-          ].map((broker) => (
-            <div key={broker.name} className="flex items-center justify-between py-2 px-3 border border-border">
+          {brokers.map((broker, i) => (
+            <div
+              key={broker.name}
+              className="flex items-center justify-between py-2 px-3 border border-border"
+            >
               <div>
                 <p className="text-xs font-medium text-foreground">{broker.name}</p>
                 <p className="text-[10px] text-muted-foreground">{broker.rows} Transaktionen</p>
               </div>
-              <svg width="10" height="10" viewBox="0 0 10 10" fill="none" className="shrink-0">
-                <path d="M1.5 5L4 7.5L8.5 2.5" stroke="#22c55e" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+              <svg
+                width="10"
+                height="10"
+                viewBox="0 0 10 10"
+                fill="none"
+                className={`shrink-0 check-draw ${inView ? "in-view" : ""}`}
+                style={{ animationDelay: `${i * 280}ms` }}
+              >
+                <path
+                  d="M1.5 5L4 7.5L8.5 2.5"
+                  stroke="#22c55e"
+                  strokeWidth="1.5"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  style={{ animationDelay: `${i * 280}ms` }}
+                />
               </svg>
             </div>
           ))}
@@ -47,8 +76,12 @@ export function MockUI() {
               { isin: "IE00B4L5Y983", name: "IWDA" },
               { isin: "IE00BK5BQT80", name: "VWCE" },
               { isin: "LU0360534375", name: "XMEX" },
-            ].map((fund) => (
-              <div key={fund.isin} className="py-1.5">
+            ].map((fund, i) => (
+              <div
+                key={fund.isin}
+                className={`py-1.5 reveal ${inView ? "in-view" : ""}`}
+                style={{ animationDelay: `${800 + i * 160}ms` }}
+              >
                 <p className="text-[10px] font-medium text-foreground">{fund.name}</p>
                 <p className="text-[9px] text-muted-foreground font-mono">{fund.isin}</p>
                 <p className="text-[9px] text-green-600">Meldefonds ✓</p>
@@ -65,12 +98,13 @@ export function MockUI() {
               <h3 className="text-sm font-medium text-foreground">Steuerjahr 2025</h3>
               <p className="text-xs text-muted-foreground">67 Transaktionen · 3 Broker · 3 ETFs</p>
             </div>
-            <span className="text-xs bg-green-50 text-green-700 border border-green-200 px-2 py-1 shrink-0">
+            <span className="text-xs bg-green-50 text-green-700 border border-green-200 px-2 py-1 shrink-0 inline-flex items-center gap-1.5">
+              <span className="w-1.5 h-1.5 rounded-full bg-green-500 pulse-soft" aria-hidden="true" />
               Abgeschlossen
             </span>
           </div>
 
-          {/* Tax breakdown — shown on md+, condensed on mobile */}
+          {/* Tax breakdown */}
           <div className="space-y-1.5">
             <p className="text-xs font-medium text-muted-foreground uppercase tracking-wider">
               Steuerberechnung
@@ -80,8 +114,12 @@ export function MockUI() {
               { label: "Kursgewinne", amount: "€ 3.180,00", sub: "§27 Abs. 3", negative: false },
               { label: "Aussch. ETF-Erträge", amount: "€ 420,00", sub: "ÖEKB", negative: false },
               { label: "Verlustausgleich", amount: "− € 640,00", sub: "Cross-broker", negative: true },
-            ].map((row) => (
-              <div key={row.label} className="flex items-center justify-between py-2 px-3 border border-border gap-2">
+            ].map((row, i) => (
+              <div
+                key={row.label}
+                className={`flex items-center justify-between py-2 px-3 border border-border gap-2 reveal ${inView ? "in-view" : ""}`}
+                style={{ animationDelay: `${300 + i * 120}ms` }}
+              >
                 <div className="min-w-0">
                   <p className="text-xs text-foreground truncate">{row.label}</p>
                   <p className="text-[10px] text-muted-foreground">{row.sub}</p>
@@ -97,12 +135,19 @@ export function MockUI() {
             </div>
           </div>
 
-          {/* KeSt result — the hero element, shown prominently on all sizes */}
+          {/* KeSt result — animated count-up */}
           <div className="border border-foreground/20 p-4 bg-foreground text-background">
             <div className="flex items-start sm:items-center justify-between gap-4">
               <div>
                 <p className="text-xs font-medium opacity-60">KeSt gesamt (27,5%)</p>
-                <p className="text-2xl font-medium font-sans mt-1">€ 1.155,00</p>
+                <p className="text-2xl font-medium font-sans mt-1">
+                  €{" "}
+                  <CountUp
+                    value={1155}
+                    duration={1500}
+                    decimals={2}
+                  />
+                </p>
               </div>
               <div className="text-right shrink-0">
                 <p className="text-xs opacity-60">Quellsteuer angerechnet</p>
@@ -112,7 +157,10 @@ export function MockUI() {
             </div>
             <div className="mt-3 pt-3 border-t border-white/20 flex items-center justify-between">
               <p className="text-xs font-medium opacity-70">Noch zu zahlen</p>
-              <p className="text-lg font-medium font-sans">€ 1.037,00</p>
+              <p className="text-lg font-medium font-sans">
+                €{" "}
+                <CountUp value={1037} duration={1700} decimals={2} />
+              </p>
             </div>
           </div>
 
@@ -127,8 +175,12 @@ export function MockUI() {
                 { line: "985", label: "Ausl. Dividenden", value: "€ 920,00" },
                 { line: "994", label: "Kursgewinne", value: "€ 3.180,00" },
                 { line: "892", label: "Aussch. Erträge", value: "€ 420,00" },
-              ].map((item) => (
-                <div key={item.line} className="border border-border p-2 flex items-center justify-between gap-1">
+              ].map((item, i) => (
+                <div
+                  key={item.line}
+                  className={`border border-border p-2 flex items-center justify-between gap-1 reveal ${inView ? "in-view" : ""}`}
+                  style={{ animationDelay: `${900 + i * 100}ms` }}
+                >
                   <div className="min-w-0">
                     <span className="text-[9px] text-muted-foreground font-mono block">Zeile {item.line}</span>
                     <span className="text-[10px] text-foreground truncate block">{item.label}</span>

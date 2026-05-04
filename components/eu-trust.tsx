@@ -1,6 +1,7 @@
 "use client";
 
-import { IllustrationShield } from "./illustrations";
+import { useRef } from "react";
+import { IllustrationShield, IllustrationEuServer } from "./illustrations";
 
 const trustItems = [
   {
@@ -30,18 +31,41 @@ const trustItems = [
 ];
 
 export function EuTrust() {
+  const tiltRef = useRef<HTMLDivElement | null>(null);
+
+  function handleMove(e: React.MouseEvent) {
+    const node = tiltRef.current;
+    if (!node) return;
+    const rect = node.getBoundingClientRect();
+    const x = (e.clientX - rect.left) / rect.width - 0.5;
+    const y = (e.clientY - rect.top) / rect.height - 0.5;
+    node.style.transform = `perspective(600px) rotateX(${(-y * 14).toFixed(2)}deg) rotateY(${(x * 14).toFixed(2)}deg)`;
+  }
+  function handleLeave() {
+    if (tiltRef.current) tiltRef.current.style.transform = "";
+  }
+
   return (
     <section className="bg-background py-16 sm:py-20 lg:py-28 border-t border-border">
       <div className="max-w-site mx-auto px-4 sm:px-6 lg:px-8">
         <div className="max-w-3xl mx-auto">
-          <div className="mb-12">
-            <IllustrationShield className="w-12 h-12 text-foreground mb-5 opacity-75" />
+          <div
+            className="mb-12"
+            onMouseMove={handleMove}
+            onMouseLeave={handleLeave}
+          >
+            <div className="flex items-center gap-3 mb-5">
+              <div ref={tiltRef} className="tilt-target">
+                <IllustrationShield className="w-12 h-12 text-foreground opacity-80" />
+              </div>
+              <IllustrationEuServer className="w-12 h-12 text-foreground/70" />
+            </div>
             <p className="text-xs text-muted-foreground uppercase tracking-wider mb-3">
               Deine Sicherheit
             </p>
             <h2 className="font-serif text-2xl sm:text-3xl text-foreground">
               Du lädst hier deine Finanzdaten hoch.{" "}
-              <span className="italic">Das nehmen wir ernst.</span>
+              <span className="italic squiggle">Das nehmen wir ernst.</span>
             </h2>
             <p className="mt-4 text-sm text-muted-foreground leading-relaxed max-w-xl">
               Wir wissen dass es kein kleiner Schritt ist, einem fremden Tool seine Depotauszüge anzuvertrauen. Deshalb haben wir KestKlar von Grund auf so gebaut, dass deine Daten privat bleiben — nicht weil es Vorschrift ist, sondern weil wir es selbst so nutzen würden.

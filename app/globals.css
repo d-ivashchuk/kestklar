@@ -50,4 +50,187 @@ body {
 .dot-grid {
   background-image: radial-gradient(circle, hsl(0 0% 75% / 0.4) 1px, transparent 1px);
   background-size: 24px 24px;
+  position: relative;
+}
+
+/* A few "breathing" dots overlaid on top of the static grid */
+.dot-grid-breath::before,
+.dot-grid-breath::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-image: radial-gradient(circle, hsl(152 69% 45% / 0.55) 1.4px, transparent 1.6px);
+  background-size: 192px 168px;
+  background-position: 24px 24px;
+  animation: dot-breath 6.5s ease-in-out infinite;
+}
+.dot-grid-breath::after {
+  background-position: 120px 96px;
+  background-size: 264px 216px;
+  animation-duration: 9s;
+  animation-delay: -3s;
+  background-image: radial-gradient(circle, hsl(0 0% 30% / 0.35) 1.4px, transparent 1.6px);
+}
+
+@keyframes dot-breath {
+  0%, 100% { opacity: 0.15; transform: scale(1); }
+  50%      { opacity: 0.85; transform: scale(1.04); }
+}
+
+/* Squiggle underline — drawn behind italic emphasis words */
+.squiggle {
+  position: relative;
+  display: inline-block;
+}
+.squiggle::after {
+  content: "";
+  position: absolute;
+  left: -2px;
+  right: -2px;
+  bottom: -0.18em;
+  height: 0.45em;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 80 12' preserveAspectRatio='none'><path d='M2 8 Q 10 1, 20 8 T 40 8 T 60 8 T 78 8' fill='none' stroke='%2322c55e' stroke-width='1.6' stroke-linecap='round'/></svg>");
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  pointer-events: none;
+  stroke-dasharray: 200;
+  stroke-dashoffset: 200;
+  opacity: 0;
+  animation: squiggle-in 1.1s ease-out 0.35s forwards;
+}
+@keyframes squiggle-in {
+  to { opacity: 1; }
+}
+
+/* Dashed connector — used in HowItWorks; animates left→right when in view */
+.dash-flow {
+  stroke-dasharray: 6 6;
+  stroke-dashoffset: 0;
+  animation: dash-march 1.2s linear infinite;
+}
+@keyframes dash-march {
+  to { stroke-dashoffset: -12; }
+}
+
+/* Stroke draw — used for the connector path on first reveal */
+.draw-stroke {
+  stroke-dasharray: 1000;
+  stroke-dashoffset: 1000;
+}
+.draw-stroke.in-view {
+  animation: draw-stroke 1.4s cubic-bezier(0.65, 0, 0.35, 1) forwards;
+}
+@keyframes draw-stroke {
+  to { stroke-dashoffset: 0; }
+}
+
+/* Sequential fade-up reveal */
+.reveal {
+  opacity: 0;
+  transform: translateY(6px);
+}
+.reveal.in-view {
+  animation: fade-up 0.7s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+}
+@keyframes fade-up {
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Soft pulse for "live" indicators */
+.pulse-soft {
+  animation: pulse-soft 2.4s ease-in-out infinite;
+}
+@keyframes pulse-soft {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50%      { opacity: 0.55; transform: scale(0.92); }
+}
+
+/* Check-draw — used on inline checkmarks */
+.check-draw path {
+  stroke-dasharray: 24;
+  stroke-dashoffset: 24;
+}
+.check-draw.in-view path {
+  animation: check-draw 0.5s ease-out forwards;
+}
+@keyframes check-draw {
+  to { stroke-dashoffset: 0; }
+}
+
+/* Hover micro-interaction for feature cards */
+.feature-card {
+  position: relative;
+  overflow: hidden;
+}
+.feature-card .feature-num {
+  transition: transform 0.35s cubic-bezier(0.2, 0.8, 0.2, 1), color 0.35s ease;
+}
+.feature-card .feature-title {
+  transition: transform 0.35s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+.feature-card::after {
+  content: "";
+  position: absolute;
+  left: 1.5rem;
+  right: 1.5rem;
+  bottom: 0;
+  height: 1px;
+  background: hsl(152 69% 45%);
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform 0.45s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+.feature-card:hover::after {
+  transform: scaleX(1);
+}
+.feature-card:hover .feature-num {
+  transform: translateY(-2px);
+  color: hsl(152 69% 45% / 0.7);
+}
+.feature-card:hover .feature-title {
+  transform: translateY(2px);
+}
+.feature-card:hover .feature-glyph {
+  transform: rotate(-4deg) scale(1.06);
+}
+.feature-card .feature-glyph {
+  transition: transform 0.45s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+/* Perforated tear-line divider */
+.tear-line {
+  height: 12px;
+  width: 100%;
+  background-image: radial-gradient(circle at 6px 6px, hsl(var(--border)) 1.4px, transparent 1.8px);
+  background-size: 12px 12px;
+  background-repeat: repeat-x;
+  background-position: 0 6px;
+}
+
+/* Tilt target — used for cursor-aware shield */
+.tilt-target {
+  transition: transform 0.18s ease-out;
+  transform-style: preserve-3d;
+  will-change: transform;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .dot-grid-breath::before,
+  .dot-grid-breath::after,
+  .dash-flow,
+  .pulse-soft {
+    animation: none !important;
+  }
+  .draw-stroke,
+  .check-draw path {
+    stroke-dashoffset: 0 !important;
+    animation: none !important;
+  }
+  .reveal,
+  .squiggle::after {
+    opacity: 1 !important;
+    transform: none !important;
+    animation: none !important;
+  }
 }

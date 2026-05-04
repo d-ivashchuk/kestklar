@@ -2,6 +2,7 @@
 
 import { useLang } from "@/lib/i18n";
 import { WaitlistForm } from "./waitlist-form";
+import { IllustrationPaperPlane } from "./illustrations";
 
 export function CTA() {
   const { t } = useLang();
@@ -9,9 +10,7 @@ export function CTA() {
     <section className="bg-background py-16 sm:py-20 lg:py-28 border-t border-border">
       <div className="max-w-site mx-auto px-4 sm:px-6 lg:px-8 text-center">
         <div className="max-w-lg mx-auto space-y-6">
-          <div className="w-10 h-10 bg-foreground flex items-center justify-center mx-auto">
-            <span className="text-background text-lg font-bold leading-none">K</span>
-          </div>
+          <IllustrationPaperPlane className="w-14 h-14 text-foreground/80 mx-auto" />
           <h2 className="font-serif text-2xl sm:text-3xl text-foreground">
             {t.cta.h2}
           </h2>

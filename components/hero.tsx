@@ -4,12 +4,13 @@ import { useLang } from "@/lib/i18n";
 import { MockUI } from "./mock-ui";
 import { WaitlistForm } from "./waitlist-form";
 import { StatusBadge } from "./status-badge";
+import { CountUp } from "./count-up";
 
 export function Hero() {
   const { t } = useLang();
 
   return (
-    <section className="pt-32 pb-16 px-4 sm:px-6 lg:px-8 dot-grid relative">
+    <section className="pt-32 pb-16 px-4 sm:px-6 lg:px-8 dot-grid dot-grid-breath relative">
       <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-background to-transparent pointer-events-none" />
       <div className="max-w-site mx-auto relative">
         <div className="flex justify-center mb-6">
@@ -18,7 +19,7 @@ export function Hero() {
 
         <h1 className="font-serif text-4xl sm:text-5xl lg:text-6xl text-foreground text-center leading-tight max-w-3xl mx-auto">
           {t.hero.h1a}{" "}
-          <span className="italic">{t.hero.h1b}</span>
+          <span className="italic squiggle">{t.hero.h1b}</span>
         </h1>
 
         <p className="mt-6 text-base sm:text-lg text-muted-foreground text-center max-w-xl mx-auto leading-relaxed">
@@ -37,15 +38,22 @@ export function Hero() {
                 <p className="text-[10px] uppercase tracking-wider text-muted-foreground mb-3">
                   {t.hero.lossAdvisor}
                 </p>
-                <p className="font-serif text-3xl text-muted-foreground">{t.hero.lossAdvisorPrice}</p>
+                <p className="font-serif text-3xl text-muted-foreground">
+                  €<CountUp value={150} duration={1400} />
+                  <span className="text-muted-foreground/60">–</span>
+                  <CountUp value={300} duration={1700} />
+                </p>
                 <p className="text-xs text-muted-foreground mt-2">{t.hero.lossAdvisorSub}</p>
               </div>
               {/* The win — KestKlar */}
-              <div className="bg-foreground px-6 py-5">
+              <div className="bg-foreground px-6 py-5 relative overflow-hidden">
+                <span className="absolute top-2 right-2 w-1.5 h-1.5 rounded-full bg-green-400 pulse-soft" aria-hidden="true" />
                 <p className="text-[10px] uppercase tracking-wider text-background/50 mb-3">
                   {t.hero.lossKestklar}
                 </p>
-                <p className="font-serif text-3xl text-background">{t.hero.lossKestklarPrice}</p>
+                <p className="font-serif text-3xl text-background">
+                  €<CountUp value={29} duration={1100} />
+                </p>
                 <p className="text-xs text-background/60 mt-2">{t.hero.lossKestklarSub}</p>
               </div>
             </div>

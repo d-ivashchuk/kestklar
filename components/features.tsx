@@ -1,27 +1,42 @@
+import {
+  GlyphMultiBroker,
+  GlyphDatabase,
+  GlyphFormLine,
+  GlyphWarning,
+  GlyphAiCheck,
+  GlyphPdfExport,
+} from "./illustrations";
+
 const features = [
   {
     title: "Mehrere Broker, eine Berechnung",
     body: "Trade Republic, IBKR, Scalable Capital — lade alle PDFs hoch. Der Verlustausgleich über Broker hinweg passiert automatisch.",
+    Glyph: GlyphMultiBroker,
   },
   {
     title: "ETF-Erträge automatisch",
     body: "Ausschüttungsgleiche Erträge deiner thesaurierenden ETFs werden direkt aus der ÖEKB-Datenbank abgerufen. Du musst nichts selbst nachschlagen.",
+    Glyph: GlyphDatabase,
   },
   {
     title: "Genaue E1kv-Zeilen",
     body: "Kein Raten welche Zahl wohin kommt. KestKlar sagt dir exakt: Zeile 984 — 320 Euro. Zeile 994 — 3.180 Euro. Einfach abtippen.",
+    Glyph: GlyphFormLine,
   },
   {
     title: "Nichtmeldefonds-Warnung",
     body: "Falls ein Fonds nicht bei der ÖEKB gemeldet ist, wirst du sofort gewarnt — bevor du einen zu niedrigen Betrag einreichst.",
+    Glyph: GlyphWarning,
   },
   {
     title: "KI-Plausibilitätsprüfung",
     body: "Nach der Berechnung prüft ein KI-Modell das Ergebnis auf Ungereimtheiten. Auffälligkeiten werden klar erklärt, nie stillschweigend ignoriert.",
+    Glyph: GlyphAiCheck,
   },
   {
     title: "PDF-Export für deine Unterlagen",
     body: "Exportiere eine vollständige Aufstellung aller Transaktionen und Berechnungen — als Beilage für FinanzOnline oder den Steuerberater.",
+    Glyph: GlyphPdfExport,
   },
 ];
 
@@ -40,9 +55,12 @@ export function Features() {
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-px border border-border bg-border">
           {features.map((f, i) => (
-            <div key={f.title} className="bg-background p-6 space-y-3">
-              <span className="font-mono text-xs text-muted-foreground/40">0{i + 1}</span>
-              <h3 className="font-sans text-sm font-medium text-foreground">{f.title}</h3>
+            <div key={f.title} className="feature-card bg-background p-6 space-y-3">
+              <div className="flex items-start justify-between">
+                <f.Glyph className="feature-glyph w-6 h-6 text-foreground/80" />
+                <span className="feature-num font-mono text-xs text-muted-foreground/40">0{i + 1}</span>
+              </div>
+              <h3 className="feature-title font-sans text-sm font-medium text-foreground">{f.title}</h3>
               <p className="font-sans text-sm text-muted-foreground leading-relaxed">{f.body}</p>
             </div>
           ))}
