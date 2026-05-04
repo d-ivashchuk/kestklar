@@ -453,6 +453,68 @@ POSTHOG_KEY
 
 Primary moat: **ÖEKB automation**. Most time-consuming step, most error-prone, no automated tool currently does it. Ship this first.
 
+## 15. Data Integrity & ÖEKB Sanity Checks
+
+ÖEKB is the source of truth and the place we are most likely to be silently wrong. Controls below are layered so a single failure (site change, parsing bug, stale cache) is caught before it reaches a user's tax return.
+
+### 15.1 At fetch time — block bad data from entering the cache
+
+- **Zod schema on every scraped record** — reject if `deemedDistributionPerUnit`, `currency`, `reportingDate`, ISIN, or source URL is missing. No partial writes.
+- **Bounds check** — `deemedDistributionPerUnit / NAV` must be in `[0, 0.5]`. Outside that range is almost certainly a parsing error. Flag for review, do not cache.
+- **Currency whitelist** — must be a known ISO 4217 code; reject silently coerced values.
+- **Stichtag in window** — `reportingDate` must fall in the claimed tax year ±60 days (some funds report early Jan).
+- **Structural fingerprint of the source page** — store a hash of the HTML/JSON shape we scraped from. If the next fetch sees a different shape, alarm and refuse to write. Catches ÖEKB site changes before they corrupt the cache.
+
+### 15.2 Internal math invariants — every calculation must satisfy
+
+- `grossKest = 27.5% × (KZ 937 + KZ 936 + KZ 985 + KZ 994)` to the cent. Any rounding drift = bug.
+- `KZ 998 ≤ 27.5% × foreign-dividend basis` (no overcredit possible by construction).
+- For each ETF: `quantityOnStichtag` ≤ max(quantityEverHeld). Negative or absurd snapshot = bug.
+- `KZ 996 ≥ 0` (stored as absolute value). Sign errors caught immediately.
+- Re-derive EUR amount independently: `perUnit × qty × ECB(Stichtag)` recomputed from raw inputs must equal cached `grossAmountEur`.
+
+### 15.3 Continuous canary — catch drift over time
+
+- **Golden fund set** — 20–30 widely held ISINs (Core MSCI World, S&P 500, Emerging, EUR Gov Bond, etc.) with manually verified historical values for the last 5 tax years.
+- **Nightly CI re-fetches the goldens** and compares against locked values. Any disagreement → Sentry alert + halt new ÖEKB cache writes until reviewed.
+- **New-tax-year canary** — first week of February, force-fetch goldens and assert we are getting the new year's record, not the prior one. Catches the case where ÖEKB has not yet published but we silently serve stale.
+
+### 15.4 Cross-source spot checks — catch systematic bias
+
+- ÖEKB also publishes a per-fund PDF Steuermeldung alongside the structured record. Parse both, require numerical agreement to within €0.0001/unit. Two extractors checking each other.
+- For the golden set: cross-reference Pfennigfuchser community spreadsheets and 1–2 Austrian tax-advisor blogs. Manual, annual, low effort, very high signal.
+- **FX cross-check** — independently re-fetch ECB rate for `reportingDate` from a second source (e.g. `exchangerate.host`) once per month for the goldens. Disagreement >0.05% → investigate.
+
+### 15.5 Audit trail — provable after the fact
+
+- For each `TaxCalculationResult`, persist `(ISIN, taxYear, sourceUrl, fetchedAt, rawJson)` for every ÖEKB record used. Append-only.
+- Never overwrite a cache row — re-fetches insert a new row with newer `fetchedAt`. Old calculations remain bit-for-bit reproducible.
+- If a user disputes a number, we can show: "we read X from this URL on this date, here is the raw response, here is the math."
+
+### 15.6 Human in the loop — especially v1
+
+- First ~50 paying users: 10% sample manually QA'd by a domain reviewer before the user sees the result. Generates fixtures for golden tests.
+- Per-result **confidence label** in UI: green (perfect schema match + canary green + bounds pass), yellow (any soft warning), red (engage a Steuerberater). Don't hide uncertainty.
+- **User can override any ÖEKB value manually** with a note (e.g. their Steuerberater confirmed a different number). Override is recorded, never silently merged with our value.
+
+### 15.7 Legal posture — we are not the Steuerberater
+
+- ToS makes clear: KestKlar provides automation; user is responsible for filing correctness. Same disclaimer Pfennigfuchser-style community tools use.
+- No "tax advice" language in marketing. "Berechnungshilfe" / "calculation tool."
+- Berufshaftpflicht-style insurance once revenue justifies — Stage 2/3, not before.
+
+### 15.8 Phase 1 cut — minimum viable integrity controls
+
+If a smaller subset must ship before launch:
+
+1. Zod + bounds-check at fetch time (§15.1)
+2. Math invariants in tests (§15.2)
+3. Golden set of 10 ISINs × 3 tax years (§15.3, abridged)
+4. Audit trail — append-only `OekbFundData`, store source URL + raw JSON (§15.5)
+5. Manual override + confidence label in UI (§15.6)
+
+Everything else (PDF cross-parse, weekly canaries, second FX source) is Phase 2 once real volume justifies it.
+
 ## Appendix — External References
 
 - BMF E1kv 2024 form: formulare.bmf.gv.at/service/formulare/inter-Steuern/pdfs/2024/E1kv.pdf
