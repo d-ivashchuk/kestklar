@@ -32,6 +32,46 @@ const articles = [
     summary:
       "Interactive Brokers, Scalable Capital, DEGIRO: calculate 27.5% KeSt yourself, net losses across all accounts, and credit foreign withholding tax.",
   },
+  {
+    slug: "interactive-brokers-austria-tax",
+    title: "Interactive Brokers Austria Tax: Complete Guide",
+    tags: ["IBKR", "E1kv", "W-8BEN"],
+    readTime: "8 min read",
+    summary:
+      "Read the Activity Statement, compute the moving average price, credit US withholding tax, and fill in the E1kv. With every claim cited to the BMF and JUSLINE.",
+  },
+  {
+    slug: "degiro-austria-tax",
+    title: "DEGIRO Austria Tax: 2025 Guide",
+    tags: ["DEGIRO", "flatex", "E1kv"],
+    readTime: "9 min read",
+    summary:
+      "DEGIRO Austria no longer exists. If you still use DEGIRO, you use DEGIRO Germany — non-tax-simple. Step-by-step guide to filing the E1kv with official sources.",
+  },
+  {
+    slug: "scalable-capital-austria-tax",
+    title: "Scalable Capital Austria Tax: 2025 Status",
+    tags: ["Scalable", "Baader", "E1kv"],
+    readTime: "10 min read",
+    summary:
+      "Full banking license, depot migration away from Baader, KPMG tax report: what changed in 2025 and what you must enter in the E1kv.",
+  },
+  {
+    slug: "austrian-loss-netting",
+    title: "Loss Netting in Austria: What Actually Offsets What",
+    tags: ["§27 EStG", "Losses", "2025"],
+    readTime: "9 min read",
+    summary:
+      "§27 Abs 8 EStG explained: three buckets, a clear table of what works and what doesn't, three worked examples, and the new 2025 Tax Reporting Regulation.",
+  },
+  {
+    slug: "etf-reporting-funds-check",
+    title: "ETF Reporting Funds Check: OeKB Guide",
+    tags: ["OeKB", "Reporting Fund", "§186 InvFG"],
+    readTime: "9 min read",
+    summary:
+      "Check whether your ETF is a reporting fund or a black fund. Walkthrough of my.oekb.at, the flat-rate taxation formula, and all deadlines.",
+  },
 ];
 
 export default function EnRatgeberPage() {

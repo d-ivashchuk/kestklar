@@ -40,6 +40,38 @@ const articles = [
     keyword: "IBKR · Activity Statement · §27a EStG",
     readTime: "8 min",
   },
+  {
+    slug: "degiro-steuer-oesterreich",
+    title: "DEGIRO Steuererklärung Österreich: Anleitung 2025",
+    description:
+      "DEGIRO Austria existiert nicht mehr — wer DEGIRO heute nutzt, nutzt DEGIRO Deutschland und ist nicht steuereinfach. So füllst du E1kv korrekt aus.",
+    keyword: "DEGIRO · flatex · E1kv",
+    readTime: "9 min",
+  },
+  {
+    slug: "scalable-capital-steuer-oesterreich",
+    title: "Scalable Capital Steuer Österreich: Status 2025",
+    description:
+      "Vollbank-Lizenz, Depotmigration weg von Baader Bank, KPMG-Steuerreport: was sich 2025 geändert hat und was du in der E1kv eintragen musst.",
+    keyword: "Scalable · Baader · E1kv",
+    readTime: "10 min",
+  },
+  {
+    slug: "verlustausgleich-oesterreich",
+    title: "Verlustausgleich Österreich: Was wirklich verrechenbar ist",
+    description:
+      "§27 Abs 8 EStG zerlegt: drei Buckets, klare Tabelle was geht und was nicht, drei Rechenbeispiele und die neue Steuerreporting-Verordnung 2025.",
+    keyword: "§27 EStG · Verluste · 2025",
+    readTime: "9 min",
+  },
+  {
+    slug: "etf-meldefonds-pruefen",
+    title: "ETF Meldefonds prüfen: OeKB-Anleitung Österreich",
+    description:
+      "So prüfst du, ob dein ETF Meldefonds oder Schwarzfonds ist. Mit Walkthrough durch my.oekb.at, Pauschalbesteuerungs-Formel und allen Fristen.",
+    keyword: "Meldefonds · OeKB · §186 InvFG",
+    readTime: "9 min",
+  },
 ];
 
 export default function RatgeberPage() {
