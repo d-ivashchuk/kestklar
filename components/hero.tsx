@@ -52,7 +52,7 @@ export function Hero() {
           </div>
         </div>
 
-        <div id="waitlist" className="flex flex-col items-center mt-10 gap-3">
+        <div id="waitlist" className="flex flex-col items-center mt-10 gap-3 scroll-mt-24">
           <WaitlistForm size="large" />
           <p className="text-xs text-muted-foreground">{t.hero.ctaSub}</p>
         </div>

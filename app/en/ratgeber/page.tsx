@@ -76,27 +76,16 @@ const articles = [
 
 export default function EnRatgeberPage() {
   return (
-    <main className="max-w-2xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
-      <div className="mb-2 flex items-center justify-between">
-        <Link href="/" className="text-xs text-muted-foreground hover:text-foreground transition-colors">
-          ← KestKlar
-        </Link>
-        <Link href="/ratgeber" className="text-xs text-muted-foreground hover:text-foreground transition-colors">
-          Auf Deutsch →
-        </Link>
-      </div>
-
-      <header className="mt-6 mb-12">
-        <p className="text-xs text-muted-foreground uppercase tracking-wider mb-3">
-          Guides · Austrian Investor Tax
-        </p>
-        <h1 className="font-serif text-3xl sm:text-4xl text-foreground leading-tight mb-5">
+    <main className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
+      <div className="mb-12">
+        <p className="text-xs text-muted-foreground uppercase tracking-wider mb-3">Guides</p>
+        <h1 className="font-serif text-3xl sm:text-4xl text-foreground mb-4">
           Austrian Tax Guides for Investors
         </h1>
-        <p className="text-base text-muted-foreground leading-relaxed">
+        <p className="text-sm text-muted-foreground leading-relaxed max-w-xl">
           Practical, factually verified articles on Austrian capital gains tax. Written for investors using Interactive Brokers, Scalable Capital, DEGIRO, or any other non-tax-simple broker.
         </p>
-      </header>
+      </div>
 
       <div className="space-y-px border border-border">
         {articles.map((article) => (

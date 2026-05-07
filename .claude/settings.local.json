@@ -1,7 +1,9 @@
 {
   "permissions": {
     "allow": [
-      "WebSearch"
+      "WebSearch",
+      "mcp__ff84e56b-e549-4d55-8a0b-3472fcf9c823__list_deployments",
+      "mcp__ff84e56b-e549-4d55-8a0b-3472fcf9c823__web_fetch_vercel_url"
     ]
   }
 }

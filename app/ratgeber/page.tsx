@@ -36,8 +36,8 @@ const articles = [
     slug: "interactive-brokers-steuer-oesterreich",
     title: "Interactive Brokers Steuererklärung Österreich: Komplette Anleitung",
     description:
-      "Activity Statement lesen, gleitenden Durchschnittspreis berechnen, US-Quellensteuer anrechnen und alles korrekt in der E1kv eintragen. Mit allen offiziellen BMF-Quellen.",
-    keyword: "Interactive Brokers · IBKR · E1kv",
+      "Vom Activity Statement zur fertigen E1kv: Kostenbasis mit gleitendem Durchschnittspreis, Fremdwährung, US-Quellensteuer und die häufigsten Fehler bei IBKR.",
+    keyword: "IBKR · Activity Statement · §27a EStG",
     readTime: "8 min",
   },
   {
