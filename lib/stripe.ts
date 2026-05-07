@@ -25,7 +25,7 @@ export async function getStripeCustomer({ user }: { user: User }) {
   if (user.stripeCustomerId) {
     return stripe.customers.retrieve(user.stripeCustomerId);
   }
-  return stripe.customers.create({ email: user.email, metadata: { userId: user.id } });
+  return stripe.customers.create({ email: user.email ?? undefined, metadata: { userId: user.id } });
 }
 
 export async function createCheckoutSession(args: {

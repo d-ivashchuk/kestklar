@@ -132,6 +132,13 @@ export function Nav() {
               </button>
             </div>
 
+            <Link
+              href="/sign-in"
+              className="text-sm text-muted-foreground hover:text-foreground transition-colors"
+            >
+              {lang === "en" ? "Sign in" : "Anmelden"}
+            </Link>
+
             <a
               href="/#waitlist"
               className="text-sm font-medium bg-foreground text-background px-4 py-1.5 hover:opacity-80 transition-opacity"

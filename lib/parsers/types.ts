@@ -3,29 +3,33 @@ import { z } from "zod";
 /**
  * Shared contract for all broker parsers.
  *
- * A parser is a stateless function:  Buffer → ParseResult.
- * It must not depend on environment, network, or DB. Side-effect-free pure TS
- * so it runs equally well in a Cloudflare Worker, a Vercel function, or Vitest.
+ * A parser is a stateless pure function:  ParseInput → ParseResult.
+ *
+ * It must NOT do FX conversion — it emits amounts in their original currency
+ * along with the trade date, and a separate `applyFxRates` step (called by
+ * the upload route handler) converts to EUR using ECB rates. This keeps
+ * parsers offline-runnable (great for Vitest fixtures) and isolates network
+ * calls to one place.
  */
 
+export const TransactionTypeEnum = z.enum(["BUY", "SELL", "DIVIDEND", "INTEREST"]);
+export type TransactionTypeOut = z.infer<typeof TransactionTypeEnum>;
+
 export const ParsedTransactionSchema = z.object({
-  type: z.enum([
-    "DIVIDEND",
-    "CAPITAL_GAIN",
-    "CAPITAL_LOSS",
-    "INTEREST",
-    "DEEMED_DISTRIBUTION",
-    "WITHHOLDING_TAX",
-  ]),
+  type: TransactionTypeEnum,
   isin: z.string().nullable(),
+  symbol: z.string().nullable(),
   date: z.coerce.date(),
-  quantity: z.string().nullable(), // string to preserve Decimal precision
-  priceEur: z.string().nullable(),
-  grossAmountEur: z.string(),
-  withholdingTaxEur: z.string().default("0"),
+  /** Number of units. Always positive — direction is encoded in `type`. Strings preserve Decimal precision. */
+  quantity: z.string().nullable(),
+  /** Per-unit price in `currency`. */
+  pricePerUnit: z.string().nullable(),
+  /** Gross monetary amount in `currency`. For BUY/SELL this is qty * price; for DIVIDEND it's the dividend amount. */
+  grossAmount: z.string(),
+  /** Withholding tax amount in `currency` (positive). Defaults to 0. */
+  withholdingTax: z.string().default("0"),
   currency: z.string().length(3),
-  fxRate: z.string(),
-  fxDate: z.coerce.date(),
+  description: z.string().optional(),
 });
 
 export type ParsedTransaction = z.infer<typeof ParsedTransactionSchema>;
@@ -57,9 +61,14 @@ export interface ParseInput {
   taxYear: number;
 }
 
+export interface ParseWarning {
+  code: string;
+  message: string;
+}
+
 export interface ParseResult {
   transactions: ParsedTransaction[];
-  warnings: Array<{ code: string; message: string }>;
+  warnings: ParseWarning[];
 }
 
 export type Parser = (input: ParseInput) => Promise<ParseResult>;

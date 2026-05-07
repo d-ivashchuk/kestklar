@@ -28,11 +28,12 @@ export async function POST(req: Request) {
 
   if (evt.type === "user.created" || evt.type === "user.updated") {
     const email = evt.data.email_addresses?.[0]?.email_address;
-    if (!email) return NextResponse.json({ ok: false }, { status: 400 });
     await db.user.upsert({
       where: { id: evt.data.id },
-      create: { id: evt.data.id, email },
-      update: { email },
+      // Default new users to PRO during beta. tRPC context creates rows lazily
+      // too, so this webhook just keeps email in sync.
+      create: { id: evt.data.id, email: email ?? null, plan: "PRO" },
+      update: { email: email ?? null },
     });
   } else if (evt.type === "user.deleted") {
     await db.user.deleteMany({ where: { id: evt.data.id } });

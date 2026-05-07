@@ -32,18 +32,22 @@ enum UploadStatus {
   FAILED
 }
 
+// Source-of-record event types we store. Realised gains/losses and
+// deemed-distribution income are *derived* at calculation time from these
+// raw events plus the position state — never persisted as their own rows.
 enum TransactionType {
+  BUY
+  SELL
   DIVIDEND
-  CAPITAL_GAIN
-  CAPITAL_LOSS
   INTEREST
-  DEEMED_DISTRIBUTION
-  WITHHOLDING_TAX
 }
 
 model User {
   id               String   @id // Clerk user ID
-  email            String   @unique
+  // Nullable: filled in by Clerk webhook (user.created/user.updated). The
+  // tRPC context auto-upserts the User row on first authed request without
+  // needing to round-trip Clerk for the email — only the userId is required.
+  email            String?  @unique
   plan             Plan     @default(FREE)
   stripeCustomerId String?  @unique
   createdAt        DateTime @default(now())

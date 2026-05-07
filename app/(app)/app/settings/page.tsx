@@ -5,8 +5,6 @@ import { toast } from "sonner";
 
 export default function SettingsPage() {
   const me = trpc.user.getMe.useQuery();
-  const sub = trpc.billing.getSubscription.useQuery();
-  const portal = trpc.billing.createPortalSession.useMutation();
   const deleteAccount = trpc.user.deleteAccount.useMutation();
 
   return (
@@ -21,22 +19,8 @@ export default function SettingsPage() {
           <div className="text-muted-foreground">E-Mail</div>
           <div>{me.data?.email ?? "—"}</div>
           <div className="mt-3 text-muted-foreground">Plan</div>
-          <div>{sub.data?.plan ?? "—"}</div>
+          <div>{me.data?.plan ?? "—"} (Beta — kostenlos)</div>
         </div>
-      </section>
-
-      <section className="space-y-3">
-        <h2 className="text-lg font-medium">Abrechnung</h2>
-        <button
-          onClick={async () => {
-            const { url } = await portal.mutateAsync();
-            window.location.href = url;
-          }}
-          disabled={portal.isPending || !sub.data?.stripeCustomerId}
-          className="rounded-md border border-border/60 px-3 py-1.5 text-sm hover:border-foreground/30 disabled:opacity-50"
-        >
-          Stripe-Kundenportal öffnen
-        </button>
       </section>
 
       <section className="space-y-3">

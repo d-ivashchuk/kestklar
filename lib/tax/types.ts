@@ -2,13 +2,11 @@ import { Decimal } from "decimal.js";
 
 export const KEST_RATE = new Decimal("0.275"); // 27.5% Austrian KeSt on capital income
 
-export type TxType =
-  | "DIVIDEND"
-  | "CAPITAL_GAIN"
-  | "CAPITAL_LOSS"
-  | "INTEREST"
-  | "DEEMED_DISTRIBUTION"
-  | "WITHHOLDING_TAX";
+/**
+ * Source-of-record event types. Realised gains/losses are derived from BUY/SELL
+ * events at calculation time using `lib/tax/position.ts` — they're not stored.
+ */
+export type TxType = "BUY" | "SELL" | "DIVIDEND" | "INTEREST";
 
 export interface TransactionInput {
   id: string;
@@ -47,19 +45,20 @@ export interface CalculationWarning {
     | "ALTBESTAND_DETECTED"
     | "AMBIGUOUS_QUANTITY"
     | "FX_GAP"
-    | "NEGATIVE_POSITION";
+    | "NEGATIVE_POSITION"
+    | "MANUAL_OEKB";
   isin?: string;
   message: string;
 }
 
 export interface E1kvResult {
   taxYear: number;
-  kz937: Decimal; // foreign-depot deemed distributions
-  kz936: Decimal; // Austrian-depot deemed distributions
-  kz985: Decimal; // foreign dividends
-  kz994: Decimal; // realised gains (post-netting)
-  kz996: Decimal; // realised losses (absolute, post-netting)
-  kz998: Decimal; // creditable foreign withholding tax
+  kz937: Decimal;
+  kz936: Decimal;
+  kz985: Decimal;
+  kz994: Decimal;
+  kz996: Decimal;
+  kz998: Decimal;
   grossKest: Decimal;
   netKest: Decimal;
   warnings: CalculationWarning[];

@@ -1,6 +1,6 @@
 import { Decimal } from "decimal.js";
 import type { PrismaClient } from "@prisma/client";
-import type { CalculationWarning, OekbInput } from "./types";
+import type { CalculationWarning, OekbInput, PositionState } from "./types";
 import { applyTrade, emptyPosition } from "./position";
 import { calcDeemedDistribution } from "./deemed-distribution";
 import { netLosses } from "./loss-netter";
@@ -9,7 +9,7 @@ import { assembleE1kv } from "./e1kv";
 
 /**
  * Top-level orchestrator. Loads transactions and ÖEKB cache from the DB,
- * runs the pure modules, and persists a TaxCalculationResult.
+ * runs the pure modules, persists a TaxCalculationResult.
  *
  * Append-only: every call inserts a fresh result row (ARCHITECTURE.md §15.5).
  */
@@ -17,71 +17,89 @@ export async function runTaxCalculation(args: { db: PrismaClient; userId: string
   const { db, userId, taxYear } = args;
   const warnings: CalculationWarning[] = [];
 
+  // Walk every transaction we have for this user — including BUYs from prior
+  // years — to build accurate avgCost going into `taxYear`. Realised gains
+  // only count if the SELL falls inside `taxYear`.
   const transactions = await db.transaction.findMany({
-    where: {
-      userId,
-      date: { gte: new Date(`${taxYear}-01-01`), lt: new Date(`${taxYear + 1}-01-01`) },
-    },
+    where: { userId },
     orderBy: { date: "asc" },
   });
 
-  // Walk trades chronologically, build positions, accumulate realised gains/losses.
-  const positions = new Map<string, ReturnType<typeof emptyPosition>>();
-  const realised: Decimal[] = [];
+  const yearStart = new Date(`${taxYear}-01-01`);
+  const yearEnd = new Date(`${taxYear + 1}-01-01`);
+  const positions = new Map<string, PositionState>();
+  const realisedThisYear: Decimal[] = [];
 
   for (const tx of transactions) {
+    if (tx.type !== "BUY" && tx.type !== "SELL") continue;
     if (!tx.isin || !tx.quantity || !tx.priceEur) continue;
-    if (tx.type !== "CAPITAL_GAIN" && tx.type !== "CAPITAL_LOSS") continue;
 
     const cur = positions.get(tx.isin) ?? emptyPosition(tx.isin, taxYear);
-    const isBuy = tx.quantity.toString().startsWith("-") ? false : tx.type === "CAPITAL_GAIN" ? false : true;
-    // The parser is responsible for emitting normalised CAPITAL_GAIN/LOSS rows
-    // with positive quantity and the trade direction inferred — keep this simple
-    // for the scaffold; real trade-direction handling lives in the parsers.
-    const r = applyTrade(cur, {
-      kind: isBuy ? "BUY" : "SELL",
-      quantity: new Decimal(tx.quantity.toString()),
-      priceEur: new Decimal(tx.priceEur.toString()),
-    });
-    positions.set(tx.isin, r.state);
-    if (!r.realisedGainEur.isZero()) realised.push(r.realisedGainEur);
+    try {
+      const r = applyTrade(cur, {
+        kind: tx.type,
+        quantity: new Decimal(tx.quantity.toString()),
+        priceEur: new Decimal(tx.priceEur.toString()),
+      });
+      positions.set(tx.isin, r.state);
+      const inThisYear = tx.date >= yearStart && tx.date < yearEnd;
+      if (inThisYear && tx.type === "SELL" && !r.realisedGainEur.isZero()) {
+        realisedThisYear.push(r.realisedGainEur);
+      }
+    } catch (err) {
+      warnings.push({
+        code: "NEGATIVE_POSITION",
+        isin: tx.isin,
+        message: err instanceof Error ? err.message : String(err),
+      });
+    }
   }
 
-  // Dividends → KZ 985
-  const kz985 = transactions
-    .filter((t) => t.type === "DIVIDEND")
-    .reduce((acc, t) => acc.plus(new Decimal(t.grossAmountEur.toString())), new Decimal(0));
-
-  // Withholding tax → KZ 998 (capped)
-  const totalWithholdingPaid = transactions.reduce(
-    (acc, t) => acc.plus(new Decimal(t.withholdingTaxEur.toString())),
-    new Decimal(0),
-  );
-  const kz998 = calcCreditableWithholding({ foreignDividendGrossEur: kz985, withholdingPaidEur: totalWithholdingPaid });
-
-  // Deemed distributions → KZ 936 / KZ 937
-  const heldIsins = Array.from(positions.keys());
-  const oekbRows = await db.oekbFundData.findMany({
-    where: { isin: { in: heldIsins }, taxYear },
-    orderBy: { fetchedAt: "desc" },
+  // Dividends in this tax year → KZ 985 (gross). Withholding is summed across
+  // dividends and capped against the 27.5% credit ceiling.
+  let kz985 = new Decimal(0);
+  let totalWithholdingPaid = new Decimal(0);
+  for (const tx of transactions) {
+    if (tx.type !== "DIVIDEND") continue;
+    if (tx.date < yearStart || tx.date >= yearEnd) continue;
+    kz985 = kz985.plus(new Decimal(tx.grossAmountEur.toString()));
+    totalWithholdingPaid = totalWithholdingPaid.plus(new Decimal(tx.withholdingTaxEur.toString()));
+  }
+  const kz998 = calcCreditableWithholding({
+    foreignDividendGrossEur: kz985,
+    withholdingPaidEur: totalWithholdingPaid,
   });
-  // Take the freshest row per ISIN.
+
+  // Deemed distributions (KZ 937 / KZ 936). One ÖEKB row per held ISIN per year.
+  const heldIsins = Array.from(positions.entries())
+    .filter(([, p]) => p.quantityHeld.gt(0))
+    .map(([isin]) => isin);
+
+  const oekbRows =
+    heldIsins.length === 0
+      ? []
+      : await db.oekbFundData.findMany({
+          where: { isin: { in: heldIsins }, taxYear },
+          orderBy: { fetchedAt: "desc" },
+        });
+
+  // Take the freshest row per ISIN (rows are append-only).
   const oekbByIsin = new Map<string, (typeof oekbRows)[number]>();
   for (const row of oekbRows) if (!oekbByIsin.has(row.isin)) oekbByIsin.set(row.isin, row);
 
   let kz937 = new Decimal(0);
-  const kz936 = new Decimal(0); // Austrian-depot deemed dist (rare for our users; future)
+  const kz936 = new Decimal(0);
   const oekbSourceRefs: Array<{ isin: string; taxYear: number; fetchedAt: Date; source: string }> = [];
 
   for (const isin of heldIsins) {
-    const row = oekbByIsin.get(isin);
     const pos = positions.get(isin);
-    if (!pos || pos.quantityHeld.isZero()) continue;
+    const row = oekbByIsin.get(isin);
+    if (!pos) continue;
     if (!row) {
       warnings.push({
         code: "MISSING_OEKB",
         isin,
-        message: `No ÖEKB record for ${isin} in ${taxYear} — KZ 937 may be incomplete`,
+        message: `Keine ÖEKB-Daten für ${isin} in ${taxYear} — KZ 937 unvollständig`,
       });
       continue;
     }
@@ -96,15 +114,20 @@ export async function runTaxCalculation(args: { db: PrismaClient; userId: string
     const amount = calcDeemedDistribution({ oekb, quantityOnReportingDate: pos.quantityHeld });
     kz937 = kz937.plus(amount);
     oekbSourceRefs.push({ isin: row.isin, taxYear: row.taxYear, fetchedAt: row.fetchedAt, source: row.source });
+    if (row.source.startsWith("manual:")) {
+      warnings.push({
+        code: "MANUAL_OEKB",
+        isin,
+        message: `ÖEKB-Wert für ${isin} manuell eingegeben — bitte gegen ÖEKB-Original prüfen`,
+      });
+    }
   }
 
-  // Realised gains/losses → KZ 994 / KZ 996
-  const { kz994, kz996 } = netLosses({ realisedAmounts: realised });
+  const { kz994, kz996 } = netLosses({ realisedAmounts: realisedThisYear });
 
   const result = assembleE1kv({ taxYear, kz937, kz936, kz985, kz994, kz996, kz998, warnings });
 
-  // Persist (append-only — never overwrite).
-  const saved = await db.taxCalculationResult.create({
+  return db.taxCalculationResult.create({
     data: {
       userId,
       taxYear,
@@ -120,6 +143,4 @@ export async function runTaxCalculation(args: { db: PrismaClient; userId: string
       oekbSourceRefs: oekbSourceRefs as unknown as object,
     },
   });
-
-  return saved;
 }

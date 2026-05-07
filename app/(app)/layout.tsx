@@ -2,6 +2,9 @@ import { ClerkProvider, UserButton } from "@clerk/nextjs";
 import Link from "next/link";
 import { TRPCProvider } from "@/lib/trpc/provider";
 
+// Force dynamic — every page in this subtree needs auth context.
+export const dynamic = "force-dynamic";
+
 export default function AppLayout({ children }: { children: React.ReactNode }) {
   return (
     <ClerkProvider>
