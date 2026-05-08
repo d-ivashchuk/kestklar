@@ -38,7 +38,9 @@ KEYWORDS = [
 
 
 def fetch_subreddit(subreddit: str, days: int) -> list[dict]:
-    headers = {"User-Agent": "KestKlar-Fetcher/1.0 (personal research)"}
+    # Reddit requires this exact format: script:appname:version (by u/yourusername)
+    # Replace "yourusername" with your actual Reddit username or it may get rate-limited
+    headers = {"User-Agent": "script:kestklar-opportunity-finder:v1.0 (by u/yourusername)"}
     cutoff = datetime.now(timezone.utc) - timedelta(days=days)
     posts: list[dict] = []
     after: str | None = None
