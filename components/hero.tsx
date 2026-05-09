@@ -26,11 +26,13 @@ export function Hero() {
         </p>
 
         {/* Loss aversion callout */}
-        <div className="mt-12 flex justify-center">
+        <div className="mt-10 flex justify-center">
           <div className="w-full max-w-sm">
-            <p className="text-[10px] text-muted-foreground uppercase tracking-wider text-center mb-4">
-              {t.hero.lossLabel}
-            </p>
+            {t.hero.lossLabel && (
+              <p className="text-[10px] text-muted-foreground uppercase tracking-wider text-center mb-4">
+                {t.hero.lossLabel}
+              </p>
+            )}
             <div className="grid grid-cols-2 gap-px border border-border bg-border">
               {/* The loss — Steuerberater */}
               <div className="bg-background px-6 py-5">
