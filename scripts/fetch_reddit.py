@@ -6,7 +6,8 @@ Outputs JSON to stdout — no AI calls, no API key needed.
 Usage:
     python scripts/fetch_reddit.py
     python scripts/fetch_reddit.py --days 14
-    python scripts/fetch_reddit.py --subs Finanzen_AT austria
+    python scripts/fetch_reddit.py --subs FinanzenAT austria
+    python scripts/fetch_reddit.py --comments --comment-limit 8
 
 Install: pip install requests
 """
@@ -19,7 +20,8 @@ from datetime import datetime, timedelta, timezone
 
 import requests
 
-DEFAULT_SUBREDDITS = ["Finanzen_AT", "finanzen", "austria", "TradeRepublic"]
+DEFAULT_SUBREDDITS = ["FinanzenAT", "finanzen", "austria", "TradeRepublic"]
+HEADERS = {"User-Agent": "script:kestklar-opportunity-finder:v1.0 (by u/yourusername)"}
 
 KEYWORDS = [
     "kest", "kapitalertrag", "kapitalertragssteuer",
@@ -38,9 +40,6 @@ KEYWORDS = [
 
 
 def fetch_subreddit(subreddit: str, days: int) -> list[dict]:
-    # Reddit requires this exact format: script:appname:version (by u/yourusername)
-    # Replace "yourusername" with your actual Reddit username or it may get rate-limited
-    headers = {"User-Agent": "script:kestklar-opportunity-finder:v1.0 (by u/yourusername)"}
     cutoff = datetime.now(timezone.utc) - timedelta(days=days)
     posts: list[dict] = []
     after: str | None = None
@@ -51,7 +50,7 @@ def fetch_subreddit(subreddit: str, days: int) -> list[dict]:
             url += f"&after={after}"
 
         try:
-            resp = requests.get(url, headers=headers, timeout=15)
+            resp = requests.get(url, headers=HEADERS, timeout=15)
             resp.raise_for_status()
         except requests.RequestException as e:
             print(f"[warning] r/{subreddit}: {e}", file=sys.stderr)
@@ -87,11 +86,49 @@ def fetch_subreddit(subreddit: str, days: int) -> list[dict]:
     return posts
 
 
+def fetch_comments(post: dict, limit: int) -> list[dict]:
+    url = f"https://www.reddit.com/comments/{post['id']}.json?limit={limit}&sort=confidence"
+
+    try:
+        resp = requests.get(url, headers=HEADERS, timeout=15)
+        resp.raise_for_status()
+    except requests.RequestException as e:
+        print(f"[warning] comments {post['id']}: {e}", file=sys.stderr)
+        return []
+
+    data = resp.json()
+    if len(data) < 2:
+        return []
+
+    comments: list[dict] = []
+    for child in data[1]["data"].get("children", []):
+        if child.get("kind") != "t1":
+            continue
+        c = child["data"]
+        body = (c.get("body") or "").strip()
+        if not body or body in {"[deleted]", "[removed]"}:
+            continue
+        comments.append({
+            "id": c["id"],
+            "author": c.get("author") or "",
+            "score": c.get("score", 0),
+            "created": datetime.fromtimestamp(c["created_utc"], tz=timezone.utc).strftime("%Y-%m-%d %H:%M UTC"),
+            "body": body[:1000],
+            "url": f"{post['url']}{c['id']}/",
+        })
+        if len(comments) >= limit:
+            break
+
+    return comments
+
+
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--days", type=int, default=7)
     parser.add_argument("--subs", nargs="+", default=DEFAULT_SUBREDDITS)
     parser.add_argument("--all", action="store_true", help="Skip keyword filter")
+    parser.add_argument("--comments", action="store_true", help="Fetch top-level comments for filtered posts")
+    parser.add_argument("--comment-limit", type=int, default=8)
     args = parser.parse_args()
 
     all_posts: list[dict] = []
@@ -109,6 +146,12 @@ def main():
         ]
         print(f"Keyword filter: {len(all_posts)} → {len(filtered)} posts", file=sys.stderr)
         all_posts = filtered
+
+    if args.comments:
+        for post in all_posts:
+            print(f"Fetching comments for {post['id']}...", file=sys.stderr)
+            post["comments"] = fetch_comments(post, args.comment_limit)
+            time.sleep(1.2)
 
     print(json.dumps(all_posts, ensure_ascii=False, indent=2))
 
