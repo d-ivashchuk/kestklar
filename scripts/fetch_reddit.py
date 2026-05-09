@@ -1,7 +1,15 @@
 #!/usr/bin/env python3
 """
 Fetch recent posts from Austrian finance subreddits.
-Outputs JSON to stdout — no AI calls, no API key needed.
+Outputs JSON to stdout — no AI calls needed.
+
+Requires Reddit OAuth2 app-only credentials:
+  export REDDIT_CLIENT_ID=...
+  export REDDIT_CLIENT_SECRET=...
+
+Create a free app at https://www.reddit.com/prefs/apps
+  - Type: "script"
+  - Redirect URI: http://localhost:8080
 
 Usage:
     python scripts/fetch_reddit.py
@@ -14,6 +22,7 @@ Install: pip install requests
 
 import argparse
 import json
+import os
 import sys
 import time
 from datetime import datetime, timedelta, timezone
@@ -21,7 +30,7 @@ from datetime import datetime, timedelta, timezone
 import requests
 
 DEFAULT_SUBREDDITS = ["FinanzenAT", "finanzen", "austria", "TradeRepublic"]
-HEADERS = {"User-Agent": "script:kestklar-opportunity-finder:v1.0 (by u/yourusername)"}
+USER_AGENT = "script:kestklar-opportunity-finder:v1.1 (by u/kestklar_dev)"
 
 KEYWORDS = [
     "kest", "kapitalertrag", "kapitalertragssteuer",
@@ -39,24 +48,45 @@ KEYWORDS = [
 ]
 
 
-def fetch_subreddit(subreddit: str, days: int) -> list[dict]:
+def get_token(client_id: str, client_secret: str) -> str:
+    resp = requests.post(
+        "https://www.reddit.com/api/v1/access_token",
+        auth=(client_id, client_secret),
+        data={"grant_type": "client_credentials"},
+        headers={"User-Agent": USER_AGENT},
+        timeout=15,
+    )
+    resp.raise_for_status()
+    return resp.json()["access_token"]
+
+
+def api_get(token: str, path: str, params: dict | None = None) -> dict:
+    resp = requests.get(
+        f"https://oauth.reddit.com{path}",
+        headers={"Authorization": f"Bearer {token}", "User-Agent": USER_AGENT},
+        params=params,
+        timeout=15,
+    )
+    resp.raise_for_status()
+    return resp.json()
+
+
+def fetch_subreddit(token: str, subreddit: str, days: int) -> list[dict]:
     cutoff = datetime.now(timezone.utc) - timedelta(days=days)
     posts: list[dict] = []
     after: str | None = None
 
     while True:
-        url = f"https://www.reddit.com/r/{subreddit}/new.json?limit=100"
+        params = {"limit": 100}
         if after:
-            url += f"&after={after}"
+            params["after"] = after
 
         try:
-            resp = requests.get(url, headers=HEADERS, timeout=15)
-            resp.raise_for_status()
+            data = api_get(token, f"/r/{subreddit}/new", params)
         except requests.RequestException as e:
             print(f"[warning] r/{subreddit}: {e}", file=sys.stderr)
             break
 
-        data = resp.json()
         children = data["data"]["children"]
         if not children:
             break
@@ -81,22 +111,18 @@ def fetch_subreddit(subreddit: str, days: int) -> list[dict]:
         after = data["data"].get("after")
         if not after:
             break
-        time.sleep(1.2)
+        time.sleep(1.0)
 
     return posts
 
 
-def fetch_comments(post: dict, limit: int) -> list[dict]:
-    url = f"https://www.reddit.com/comments/{post['id']}.json?limit={limit}&sort=confidence"
-
+def fetch_comments(token: str, post: dict, limit: int) -> list[dict]:
     try:
-        resp = requests.get(url, headers=HEADERS, timeout=15)
-        resp.raise_for_status()
+        data = api_get(token, f"/comments/{post['id']}", {"limit": limit, "sort": "confidence"})
     except requests.RequestException as e:
         print(f"[warning] comments {post['id']}: {e}", file=sys.stderr)
         return []
 
-    data = resp.json()
     if len(data) < 2:
         return []
 
@@ -127,14 +153,27 @@ def main():
     parser.add_argument("--days", type=int, default=7)
     parser.add_argument("--subs", nargs="+", default=DEFAULT_SUBREDDITS)
     parser.add_argument("--all", action="store_true", help="Skip keyword filter")
-    parser.add_argument("--comments", action="store_true", help="Fetch top-level comments for filtered posts")
+    parser.add_argument("--comments", action="store_true")
     parser.add_argument("--comment-limit", type=int, default=8)
     args = parser.parse_args()
+
+    client_id = os.environ.get("REDDIT_CLIENT_ID")
+    client_secret = os.environ.get("REDDIT_CLIENT_SECRET")
+    if not client_id or not client_secret:
+        print(
+            "Error: set REDDIT_CLIENT_ID and REDDIT_CLIENT_SECRET.\n"
+            "Create a free Reddit app at https://www.reddit.com/prefs/apps (type: script)",
+            file=sys.stderr,
+        )
+        sys.exit(1)
+
+    print("Authenticating with Reddit...", file=sys.stderr)
+    token = get_token(client_id, client_secret)
 
     all_posts: list[dict] = []
     for sub in args.subs:
         print(f"Fetching r/{sub}...", file=sys.stderr)
-        posts = fetch_subreddit(sub, args.days)
+        posts = fetch_subreddit(token, sub, args.days)
         print(f"  {len(posts)} posts", file=sys.stderr)
         all_posts.extend(posts)
         time.sleep(2)
@@ -150,8 +189,8 @@ def main():
     if args.comments:
         for post in all_posts:
             print(f"Fetching comments for {post['id']}...", file=sys.stderr)
-            post["comments"] = fetch_comments(post, args.comment_limit)
-            time.sleep(1.2)
+            post["comments"] = fetch_comments(token, post, args.comment_limit)
+            time.sleep(1.0)
 
     print(json.dumps(all_posts, ensure_ascii=False, indent=2))
 
