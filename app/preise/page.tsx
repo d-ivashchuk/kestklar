@@ -20,10 +20,10 @@ const features = [
   {
     category: "E1kv & Export",
     rows: [
-      { label: "E1kv Formularzeilen", free: false, standard: true, pro: true },
+      { label: "E1kv-Kennzahlen", free: false, standard: true, pro: true },
       { label: "PDF-Export (Steuerbericht)", free: false, standard: true, pro: true },
       { label: "Datenspeicherung für Folgejahre", free: false, standard: true, pro: true },
-      { label: "Verlustvorträge in Folgejahre übernehmen", free: false, standard: true, pro: true },
+      { label: "Vorjahresdaten für Anschaffungskosten übernehmen", free: false, standard: true, pro: true },
     ],
   },
   {
@@ -68,7 +68,7 @@ export default function PreisePage() {
         </h1>
         <p className="text-sm text-muted-foreground max-w-md mx-auto leading-relaxed">
           Kostenlos sehen wie viel KeSt du schuldest.
-          Für die E1kv-Zeilen und den fertigen Bericht — einmal pro Jahr.
+          Für die E1kv-Kennzahlen und den fertigen Bericht — einmal pro Jahr.
         </p>
       </div>
 
@@ -157,13 +157,13 @@ export default function PreisePage() {
         <div className="bg-background px-5 py-4">
           <p className="text-xs font-medium text-foreground mb-1">Free</p>
           <p className="text-xs text-muted-foreground leading-relaxed">
-            Du siehst deinen KeSt-Gesamtbetrag. Die E1kv-Zeilen und der Bericht bleiben gesperrt — dafür brauchst du Standard.
+            Du siehst deinen KeSt-Gesamtbetrag. Die E1kv-Kennzahlen und der Bericht bleiben gesperrt — dafür brauchst du Standard.
           </p>
         </div>
         <div className="bg-background px-5 py-4">
           <p className="text-xs font-medium text-foreground mb-1">Standard — empfohlen</p>
           <p className="text-xs text-muted-foreground leading-relaxed">
-            Alles was du für die Steuererklärung brauchst. E1kv-Zeilen, PDF-Export, Datenspeicherung. Richtig für die große Mehrheit der Anleger.
+            Alles was du für die Steuererklärung brauchst. E1kv-Kennzahlen, PDF-Export, Datenspeicherung. Richtig für die große Mehrheit der Anleger.
           </p>
         </div>
         <div className="bg-background px-5 py-4">

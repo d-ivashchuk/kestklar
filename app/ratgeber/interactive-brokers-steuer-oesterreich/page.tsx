@@ -177,7 +177,7 @@ export default function IBSteuerPage() {
               Rechtsgrundlage:{" "}
               <a href="https://findok.bmf.gv.at/findok?fassungsNr=3&stammNr=19973" target="_blank" rel="noopener noreferrer" className="text-foreground underline underline-offset-2">
                 InvFR 2018 (BMF Investmentfondsrichtlinien)
-              </a>. Nur Meldefonds (auf profitweb.at gelistet) profitieren von der günstigen Besteuerung — nicht gemeldete Fonds werden mit der pauschalen Ersatzbesteuerung belastet.
+              </a>. Nur Meldefonds (heute über my.oekb.at abrufbar) profitieren von der regulären Besteuerung — nicht gemeldete Fonds werden mit der pauschalen Ersatzbesteuerung belastet.
             </p>
           </Section>
 
@@ -188,9 +188,14 @@ export default function IBSteuerPage() {
             <div className="mt-4 border border-border divide-y divide-border">
               {[
                 {
-                  kz: "KZ 985",
-                  label: "Ausländische Dividenden und Zinsen",
-                  desc: "Brutto-Dividenden und Guthabenzinsen aus dem IBKR-Statement. In EUR umgerechnet.",
+                  kz: "KZ 863",
+                  label: "Ausländische Dividenden, Zinsen und laufende Erträge",
+                  desc: "Laufende Kapitalerträge mit 27,5% Sondersteuersatz, brutto und in EUR. Ausschüttungen aus Investmentfonds separat in KZ 898.",
+                },
+                {
+                  kz: "KZ 898",
+                  label: "Ausländische Ausschüttungen aus Investmentfonds",
+                  desc: "Cash-Ausschüttungen von Fonds/ETFs bei Auslandsdepot. Brutto vor Quellensteuer.",
                 },
                 {
                   kz: "KZ 937",
@@ -203,9 +208,9 @@ export default function IBSteuerPage() {
                   desc: "Summe aller Gewinne aus Verkäufen, berechnet mit dem gleitenden Durchschnittspreis in EUR.",
                 },
                 {
-                  kz: "KZ 996",
+                  kz: "KZ 892",
                   label: "Realisierte Kursverluste",
-                  desc: "Summe aller Verluste. Wird mit Gewinnen und laufenden Erträgen desselben Jahres verrechnet.",
+                  desc: "Ausländische Verluste aus Verkäufen. Werden mit Gewinnen und laufenden Erträgen desselben Jahres verrechnet.",
                 },
                 {
                   kz: "KZ 998",
@@ -232,7 +237,7 @@ export default function IBSteuerPage() {
 
           <Section title="Verlustausgleich: Was du mit Verlusten machen kannst">
             <p>
-              Realisierte Verluste (KZ 996) werden innerhalb desselben Kalenderjahres mit Gewinnen und laufenden Erträgen verrechnet. Hast du mehrere Broker (z.B. IBKR + Scalable), kannst du die Verluste broker-übergreifend verrechnen — genau dafür dient die E1kv.
+              Realisierte Verluste aus dem Auslandsdepot (typisch KZ 892) werden innerhalb desselben Kalenderjahres mit Gewinnen und laufenden Erträgen desselben 27,5%-Buckets verrechnet. Hast du mehrere Broker (z.B. IBKR + Scalable), kannst du die Verluste broker-übergreifend verrechnen — genau dafür dient die E1kv.
             </p>
             <p>
               <strong className="text-foreground">Wichtig:</strong> Ein Verlustvortrag in Folgejahre ist bei Einkünften aus Kapitalvermögen <em>nicht</em> möglich (§27 Abs 8 Z 3 EStG). Nicht ausgleichbare Verluste verfallen.

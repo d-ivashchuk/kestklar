@@ -56,7 +56,7 @@ export default function AGBPage() {
           <p>KestKlar wird in folgenden Tarifen angeboten:</p>
           <ul>
             <li>
-              <strong>Free</strong> — kostenlos. Umfasst die Berechnung der KeSt-Summe und die Anzeige der E1kv-Zeilen. Kein PDF-Export, keine Datenspeicherung über die aktuelle Sitzung hinaus.
+              <strong>Free</strong> — kostenlos. Umfasst die Berechnung der KeSt-Summe und die Anzeige der E1kv-Kennzahlen. Kein PDF-Export, keine Datenspeicherung über die aktuelle Sitzung hinaus.
             </li>
             <li>
               <strong>Standard — € 29 / Jahr</strong>. Umfasst zusätzlich den PDF-Export des Steuerberichts und die Speicherung der Transaktionsdaten für Folgejahre (bis zu 3 Broker).

@@ -101,16 +101,16 @@ export default async function BrokerPage({ params }: { params: Promise<{ slug: s
           <div className="max-w-site mx-auto px-4 sm:px-6 lg:px-8">
             <div className="max-w-2xl space-y-6">
               <h2 className="font-serif text-xl text-foreground">
-                Warum müssen {broker.name}-Nutzer die KeSt selbst berechnen?
+                Wann müssen {broker.name}-Nutzer die KeSt selbst berechnen?
               </h2>
               <p className="text-sm text-muted-foreground leading-relaxed">
-                {broker.name} ist kein österreichisches Kreditinstitut im Sinne des EStG. Das bedeutet: anders als bei einer österreichischen Bank (Erste, Raiffeisen, Bank Austria) wird die 27,5% Kapitalertragsteuer nicht automatisch einbehalten und ans Finanzamt abgeführt. Als österreichischer Steuerpflichtiger bist du verpflichtet, diese Erträge selbst in deiner Einkommensteuererklärung — in der Beilage E1kv — anzugeben.
+                Relevant ist nicht nur der Brokername, sondern ob für dein konkretes Konto und den konkreten Zeitraum österreichische Kapitalertragsteuer einbehalten wurde. Für nicht automatisch besteuerte Zeiträume werden die 27,5% KeSt nicht durch eine österreichische depotführende Stelle abgeführt. Als österreichischer Steuerpflichtiger musst du diese Erträge selbst in deiner Einkommensteuererklärung — in der Beilage E1kv — angeben.
               </p>
               <p className="text-sm text-muted-foreground leading-relaxed">
                 Das klingt simpel, wird aber schnell komplex: Thesaurierende ETFs haben jährliche ausschüttungsgleiche Erträge die auch ohne Dividendenausschüttung versteuert werden müssen. Wenn du neben {broker.name} noch andere Broker nutzt, musst du Verluste über alle Depots hinweg verrechnen (Verlustausgleich). Und für jeden Fonds musst du prüfen ob er bei der ÖEKB als Meldefonds registriert ist.
               </p>
               <p className="text-sm text-muted-foreground leading-relaxed">
-                KestKlar automatisiert genau diese Schritte: PDF hochladen, ÖEKB-Daten werden automatisch abgerufen, alle Berechnungen laufen im Hintergrund, du bekommst die exakten E1kv-Zeilen. Kein manuelles Nachschlagen, kein Steuerberater für mechanische Arbeit.
+                KestKlar automatisiert genau diese Schritte: PDF hochladen, ÖEKB-Daten werden abgerufen, alle Berechnungen laufen im Hintergrund, du bekommst die passenden E1kv-Kennzahlen für FinanzOnline. Kein manuelles Nachschlagen, weniger mechanische Arbeit.
               </p>
             </div>
           </div>

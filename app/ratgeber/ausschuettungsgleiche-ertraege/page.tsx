@@ -5,7 +5,7 @@ import { JsonLdArticle, JsonLdBreadcrumb } from "@/components/json-ld";
 export const metadata: Metadata = {
   title: "Ausschüttungsgleiche Erträge: ETF-Steuer Österreich erklärt – KestKlar",
   description:
-    "Was sind ausschüttungsgleiche Erträge bei ETFs? Wie berechnet man sie für die österreichische Steuererklärung? ÖEKB, Meldefonds und E1kv Zeile 892 einfach erklärt.",
+    "Was sind ausschüttungsgleiche Erträge bei ETFs? Wie berechnet man sie für die österreichische Steuererklärung? ÖEKB, Meldefonds und E1kv Kennzahl 937 einfach erklärt.",
   alternates: {
     canonical: "https://kestklar.at/ratgeber/ausschuettungsgleiche-ertraege",
     languages: { en: "https://kestklar.at/en/ratgeber/deemed-distributions" },
@@ -16,7 +16,7 @@ export default function AgEPage() {
   return (
     <main className="max-w-2xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
       <JsonLdArticle
-        headline="Ausschüttungsgleiche Ertr��ge: ETF-Steuer Österreich erkl��rt"
+        headline="Ausschüttungsgleiche Erträge: ETF-Steuer Österreich erklärt"
         description="Was sind ausschüttungsgleiche Erträge bei ETFs? Wie berechnet man sie für die österreichische Steuererklärung?"
         url="https://kestklar.at/ratgeber/ausschuettungsgleiche-ertraege"
         datePublished="2025-05-01"
@@ -70,7 +70,7 @@ export default function AgEPage() {
               Die allermeisten großen ETFs — MSCI World (IWDA), FTSE All-World (VWCE), S&P 500 (CSPX) — sind Meldefonds. Du kannst es per ISIN-Suche auf my.oekb.at prüfen.
             </p>
             <p>
-              Ist ein Fonds <strong className="text-foreground">kein</strong> Meldefonds, wird der steuerpflichtige Ertrag pauschal mit 90% des Kursgewinns bewertet — in der Regel deutlich ungünstiger. Nicht-Meldefonds sollte man als österreichischer Anleger meiden.
+              Ist ein Fonds <strong className="text-foreground">kein</strong> Meldefonds, greift die Pauschalbesteuerung: 90% der jährlichen Rücknahmepreis-Steigerung, mindestens aber 10% des Rücknahmepreises zum Jahresende. Nicht-Meldefonds sollte man als österreichischer Anleger nur halten, wenn man die Folgen bewusst in Kauf nimmt.
             </p>
           </Section>
 
@@ -124,20 +124,20 @@ export default function AgEPage() {
               Das Problem: Jeder Fonds hat einen anderen Stichtag. Du brauchst für jeden ETF den richtigen EZB-Kurs an einem anderen Datum. Die ÖEKB-Daten müssen manuell heruntergeladen und aufbereitet werden. Wer mehrere ETFs in mehreren Depots hält, verbringt damit leicht ein paar Stunden.
             </p>
             <p>
-              Bei steuereinfachen Brokern (z.B. österreichische Banken) macht das der Broker automatisch. Bei Interactive Brokers, Scalable Capital oder Bitpanda liegt es an dir.
+              Bei steuereinfachen Brokern (z.B. österreichische Banken) macht das der Broker automatisch. Bei Auslandsdepots wie Interactive Brokers, Scalable Capital oder DEGIRO Deutschland liegt es an dir.
             </p>
           </Section>
 
           <Section title="Was ist mit ausschüttenden ETFs?">
             <p>
-              Ausschüttende ETFs zahlen Erträge direkt aus. Diese Ausschüttungen sind sofort steuerpflichtig (Zeile 985 der E1kv) und erscheinen im Broker-Bericht. Ausschüttungsgleiche Erträge fallen dabei aber trotzdem an — ein Teil des Fondsertrags wird jährlich gemeldet, auch wenn ein Teil ausgeschüttet wird.
+              Ausschüttende ETFs zahlen Erträge direkt aus. Diese Ausschüttungen sind sofort steuerpflichtig; bei Auslandsdepot werden tatsächliche Fonds-Ausschüttungen typischerweise in KZ 898 erfasst. Ausschüttungsgleiche Erträge können trotzdem daneben anfallen — ein Teil des Fondsertrags wird jährlich gemeldet, auch wenn ein Teil ausgeschüttet wird.
             </p>
           </Section>
 
           <div className="mt-12 border border-border p-6 bg-secondary">
             <p className="text-xs text-muted-foreground uppercase tracking-wider mb-3">ÖEKB-Daten automatisch abrufen</p>
             <p className="text-sm text-foreground leading-relaxed mb-4">
-              KestKlar holt die ÖEKB-Fondsdaten für alle deine ETFs automatisch — richtiger Stichtag, richtiger Devisenkurs, korrekte Berechnung. Du gibst nur den Wert in Zeile 892 ein.
+              KestKlar holt die ÖEKB-Fondsdaten für alle deine ETFs automatisch — richtiger Stichtag, richtiger Devisenkurs, korrekte Berechnung. Du gibst den Wert in der passenden E1kv-Kennzahl ein, bei Auslandsdepots typischerweise KZ 937.
             </p>
             <Link href="/#waitlist" className="inline-block text-xs font-medium bg-foreground text-background px-4 py-2 hover:opacity-80 transition-opacity">
               Kostenlos auf die Warteliste →

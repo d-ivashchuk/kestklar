@@ -55,7 +55,7 @@ export default function E1kvPage() {
               Die <strong className="text-foreground">E1kv</strong> (Beilage zur Einkommensteuererklärung für Einkünfte aus Kapitalvermögen) ist ein Zusatzformular zur österreichischen Einkommensteuererklärung. Du brauchst sie, wenn du Kapitalerträge aus Quellen erzielt hast, für die keine österreichische Kapitalertragsteuer (KeSt) automatisch einbehalten wurde.
             </p>
             <p>
-              Das betrifft vor allem Anleger bei ausländischen Brokern wie <strong className="text-foreground">Interactive Brokers</strong>, <strong className="text-foreground">Scalable Capital</strong>, <strong className="text-foreground">DEGIRO</strong> oder <strong className="text-foreground">Bitpanda</strong>. Diese Broker sind keine österreichischen Kreditinstitute und führen die 27,5% KeSt nicht automatisch ans Finanzamt ab.
+              Das betrifft vor allem Anleger bei ausländischen Brokern wie <strong className="text-foreground">Interactive Brokers</strong>, <strong className="text-foreground">Scalable Capital</strong> oder <strong className="text-foreground">DEGIRO Deutschland</strong>. Entscheidend ist nicht der Markenname, sondern ob für dein konkretes Konto österreichische KeSt einbehalten wird.
             </p>
             <p>
               Hinweis: <strong className="text-foreground">Trade Republic</strong> ist seit 24. April 2025 steuereinfach in Österreich. Für das Steuerjahr 2024 und den Zeitraum vor April 2025 ist aber noch eine E1kv nötig.
@@ -92,9 +92,14 @@ export default function E1kvPage() {
                   desc: "Dasselbe wie 937, aber für ETF-Anteile die bei einer österreichischen Depotbank verwahrt werden.",
                 },
                 {
-                  kz: "KZ 985",
+                  kz: "KZ 863",
                   label: "Ausländische Dividenden / laufende Erträge",
-                  desc: "Dividenden und Zinserträge aus ausländischen Wertpapieren. Bei den meisten Anlegern mit Auslandsbroker die wichtigste laufende Ertragszeile.",
+                  desc: "Laufende Kapitalerträge mit 27,5% Sondersteuersatz. Fonds-Ausschüttungen gehören gesondert in KZ 898.",
+                },
+                {
+                  kz: "KZ 898",
+                  label: "Ausländische Ausschüttungen aus Investmentfonds",
+                  desc: "Tatsächliche Ausschüttungen aus Fonds/ETFs bei ausländischem Depot.",
                 },
                 {
                   kz: "KZ 994",
@@ -102,9 +107,9 @@ export default function E1kvPage() {
                   desc: "Gewinne aus dem Verkauf von Aktien, ETFs, Anleihen. Kaufpreis nach gleitendem Durchschnittspreisverfahren wird abgezogen.",
                 },
                 {
-                  kz: "KZ 996",
+                  kz: "KZ 892",
                   label: "Realisierte Verluste",
-                  desc: "Verluste aus Wertpapierverkäufen. Werden mit Gewinnen verrechnet (Verlustausgleich). Kein Vortrag in Folgejahre möglich.",
+                  desc: "Ausländische Verluste aus Wertpapierverkäufen. Werden mit Gewinnen verrechnet (Verlustausgleich). Kein Vortrag in Folgejahre möglich.",
                 },
                 {
                   kz: "KZ 998",

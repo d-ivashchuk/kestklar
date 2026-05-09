@@ -16,7 +16,7 @@ const inter = Inter({
 export const metadata: Metadata = {
   title: "KestKlar — KeSt berechnen für österreichische Anleger | E1kv in 10 Minuten",
   description:
-    "KeSt berechnen für Interactive Brokers, Scalable Capital & Co. PDF hochladen, ausschüttungsgleiche ETF-Erträge automatisch via ÖEKB, Verlustausgleich, exakte E1kv-Zeilen. Kein Steuerberater nötig.",
+    "KeSt berechnen für Interactive Brokers, Scalable Capital & Co. PDF hochladen, ausschüttungsgleiche ETF-Erträge via ÖEKB, Verlustausgleich und E1kv-Kennzahlen für die Steuererklärung.",
   metadataBase: new URL("https://kestklar.at"),
   keywords: [
     "KeSt berechnen Österreich",
@@ -33,7 +33,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "KestKlar — KeSt berechnen für österreichische Anleger",
     description:
-      "PDF hochladen, KeSt berechnen, E1kv-Zeilen kopieren. Für Interactive Brokers, Scalable Capital, DEGIRO und andere nicht-steuereinfache Broker in Österreich.",
+      "PDF hochladen, KeSt berechnen, E1kv-Kennzahlen vorbereiten. Für Interactive Brokers, Scalable Capital, DEGIRO und andere nicht-steuereinfache Broker in Österreich.",
     type: "website",
     locale: "de_AT",
     siteName: "KestKlar",
@@ -42,7 +42,7 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "KestKlar — KeSt berechnen in 10 Minuten",
-    description: "Austrian investor tax calculated correctly. Upload your broker PDF, get exact E1kv lines.",
+    description: "Austrian investor tax calculations for non-tax-simple brokers. Upload your broker PDF and get E1kv field values.",
   },
   alternates: {
     canonical: "https://kestklar.at",

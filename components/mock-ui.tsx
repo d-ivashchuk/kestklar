@@ -116,21 +116,21 @@ export function MockUI() {
             </div>
           </div>
 
-          {/* E1kv lines */}
+          {/* E1kv fields */}
           <div className="space-y-2">
             <p className="text-xs font-medium text-muted-foreground uppercase tracking-wider">
-              E1kv Formularzeilen
+              E1kv Kennzahlen
             </p>
             <div className="grid grid-cols-2 gap-1.5">
               {[
-                { line: "984", label: "Inl. Dividenden", value: "€ 320,00" },
-                { line: "985", label: "Ausl. Dividenden", value: "€ 920,00" },
+                { line: "863", label: "Laufende Erträge", value: "€ 920,00" },
+                { line: "898", label: "Fonds-Aussch.", value: "€ 320,00" },
                 { line: "994", label: "Kursgewinne", value: "€ 3.180,00" },
-                { line: "892", label: "Aussch. Erträge", value: "€ 420,00" },
+                { line: "937", label: "AgE Fonds", value: "€ 420,00" },
               ].map((item) => (
                 <div key={item.line} className="border border-border p-2 flex items-center justify-between gap-1">
                   <div className="min-w-0">
-                    <span className="text-[9px] text-muted-foreground font-mono block">Zeile {item.line}</span>
+                    <span className="text-[9px] text-muted-foreground font-mono block">KZ {item.line}</span>
                     <span className="text-[10px] text-foreground truncate block">{item.label}</span>
                   </div>
                   <span className="text-[10px] font-mono font-medium text-foreground shrink-0">{item.value}</span>

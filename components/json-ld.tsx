@@ -118,7 +118,7 @@ export function JsonLdWebApplication() {
         name: "Standard",
         price: "29",
         priceCurrency: "EUR",
-        description: "E1kv-Zeilen, PDF-Export, bis zu 3 Broker, Datenspeicherung.",
+        description: "E1kv-Kennzahlen, PDF-Export, bis zu 3 Broker, Datenspeicherung.",
       },
       {
         "@type": "Offer",
@@ -129,21 +129,21 @@ export function JsonLdWebApplication() {
       },
     ],
     description:
-      "KestKlar berechnet die österreichische Kapitalertragsteuer (KeSt) automatisch aus Broker-PDFs. Unterstützt Interactive Brokers, Scalable Capital und weitere nicht-steuereinfache Broker. Liefert die exakten Zeilen für die Beilage E1kv der Einkommensteuererklärung.",
+      "KestKlar berechnet die österreichische Kapitalertragsteuer (KeSt) aus Broker-PDFs. Unterstützt Interactive Brokers, Scalable Capital und weitere nicht automatisch besteuerte Broker. Liefert vorbereitete Kennzahlen für die Beilage E1kv der Einkommensteuererklärung.",
     featureList: [
       "Automatischer PDF-Import von Broker-Jahresabrechnungen",
       "KeSt-Berechnung auf Dividenden, Kursgewinne und ETF-Ausschüttungen",
       "Ausschüttungsgleiche Erträge via ÖEKB-Fondsdaten",
       "Verlustausgleich über mehrere Broker",
       "Anrechnung ausländischer Quellensteuer (z.B. US-Quellensteuer 15%)",
-      "Exakte E1kv-Formularzeilen für FinanzOnline",
+      "E1kv-Kennzahlen für FinanzOnline",
       "PDF-Export des fertigen Steuerberichts",
     ],
     inLanguage: ["de", "en"],
     audience: {
       "@type": "Audience",
       audienceType:
-        "Österreichische Privatanleger bei nicht-steuereinfachen Brokern (Interactive Brokers, Scalable Capital, DEGIRO, Bitpanda)",
+        "Österreichische Privatanleger bei ausländischen oder nicht automatisch besteuernden Brokern",
     },
   };
   return (
@@ -164,7 +164,7 @@ export function JsonLdFaq() {
         name: "Muss ich als österreichischer Anleger bei Interactive Brokers oder Scalable Capital die KeSt selbst berechnen?",
         acceptedAnswer: {
           "@type": "Answer",
-          text: "Ja. Interactive Brokers und Scalable Capital sind keine österreichischen Kreditinstitute und führen die Kapitalertragsteuer (KeSt) von 27,5% nicht automatisch ab. Österreichische Steuerpflichtige müssen ihre Kapitalerträge aus diesen Brokern selbst berechnen und in der Beilage E1kv zur Einkommensteuererklärung angeben.",
+          text: "Ja, wenn für das konkrete Konto keine österreichische Kapitalertragsteuer (KeSt) automatisch einbehalten wird. Bei Interactive Brokers ist das typischerweise der Fall; bei Scalable Capital gilt nach aktuellem Österreich-Status ebenfalls Selbstdeklaration. Österreichische Steuerpflichtige müssen diese Kapitalerträge selbst berechnen und in der Beilage E1kv zur Einkommensteuererklärung angeben.",
         },
       },
       {
@@ -188,7 +188,7 @@ export function JsonLdFaq() {
         name: "Was ist die E1kv und wie fülle ich sie aus?",
         acceptedAnswer: {
           "@type": "Answer",
-          text: "Die E1kv (Einkommensteuererklärung Beilage für Kapitalvermögen) ist das österreichische Formular für die Angabe von Kapitalerträgen aus nicht-steuereinfachen Quellen. Sie wird als Beilage zur Einkommensteuererklärung in FinanzOnline eingereicht. Wichtige Kennzahlen sind KZ 985 (ausländische Dividenden/laufende Erträge), KZ 994 (realisierte Kursgewinne), KZ 996 (realisierte Verluste), KZ 937 (ausschüttungsgleiche Erträge, ausländisches Depot) und KZ 998 (anrechenbare Quellensteuer). KestKlar berechnet die exakten Beträge für jede Kennzahl.",
+          text: "Die E1kv (Einkommensteuererklärung Beilage für Kapitalvermögen) ist das österreichische Formular für die Angabe von Kapitalerträgen aus nicht automatisch besteuerten Quellen. Sie wird als Beilage zur Einkommensteuererklärung in FinanzOnline eingereicht. Häufig relevante Kennzahlen sind KZ 863 für laufende ausländische Kapitalerträge, KZ 898 für ausländische Investmentfonds-Ausschüttungen, KZ 994 für realisierte Kursgewinne, KZ 892 für ausländische Kursverluste, KZ 937 für ausschüttungsgleiche Erträge bei Auslandsdepot und KZ 998 für anrechenbare Quellensteuer. Maßgeblich bleibt immer das BMF-Formular des jeweiligen Jahres.",
         },
       },
       {

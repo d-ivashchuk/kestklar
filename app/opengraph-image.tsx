@@ -70,7 +70,7 @@ export default function OgImage() {
           }}
         >
           Für Interactive Brokers, Scalable Capital & andere nicht-steuereinfache
-          Broker in Österreich. PDF hochladen → E1kv-Zeilen kopieren.
+          Broker in Österreich. PDF hochladen → E1kv-Kennzahlen vorbereiten.
         </div>
 
         <div

@@ -16,7 +16,7 @@ export const translations = {
       badge: "Jetzt in Entwicklung · Warteliste offen",
       h1a: "Österreichische Investorsteuer,",
       h1b: "fertig in 10 Minuten.",
-      sub: "Lade dein Broker-PDF hoch. KestKlar berechnet deine KeSt — inklusive ETF-Erträge, Verlustausgleich und exakter E1kv-Zeilen.",
+      sub: "Lade dein Broker-PDF hoch. KestKlar berechnet deine KeSt — inklusive ETF-Erträge, Verlustausgleich und passenden E1kv-Kennzahlen.",
       lossLabel: "Was Österreicher jedes Jahr bezahlen",
       lossAdvisor: "Steuerberater",
       lossAdvisorPrice: "€150–300",
@@ -44,8 +44,8 @@ export const translations = {
       s1b: "Lade deine Jahresabrechnung hoch — von einem oder mehreren Brokern. KestKlar liest alle Transaktionen automatisch aus.",
       s2t: "Wir rechnen alles durch",
       s2b: "KeSt auf Dividenden, Kursgewinne, ausschüttungsgleiche ETF-Erträge, Verlustausgleich über mehrere Broker und ausländische Quellensteuer-Anrechnung.",
-      s3t: "E1kv-Zeilen kopieren",
-      s3b: "Du siehst genau welche Zahl in welche Zeile deiner E1kv kommt. Einfach in FinanzOnline übertragen. Fertig.",
+      s3t: "E1kv-Kennzahlen vorbereiten",
+      s3b: "Du siehst, welche Beträge in welche E1kv-Kennzahlen gehören. Danach überträgst du sie in FinanzOnline.",
       avg: "Durchschnittliche Zeit:",
       avgVal: "8 Minuten",
       avgSub: "für einen Investor mit 2 Brokern und 3 ETFs.",
@@ -54,7 +54,7 @@ export const translations = {
       eyebrow: "Was österreichische Investoren sagen",
       h2a: "Das Problem ist real.",
       h2b: "Jeden Jänner aufs Neue.",
-      stat: "Über 1,2 Millionen Österreicher halten Wertpapiere bei nicht-österreichischen Brokern. Jeder von ihnen hat dieses Problem jedes Jahr.",
+      stat: "Viele österreichische Anleger halten Wertpapiere bei ausländischen oder nicht automatisch besteuernden Brokern. Für sie wird die E1kv jedes Jahr schnell komplex.",
     },
     faq: {
       heading: "Häufige Fragen",
@@ -62,11 +62,11 @@ export const translations = {
       items: [
         {
           q: "Was kostet KestKlar?",
-          a: "Der Basiszugang ist kostenlos — du siehst deine KeSt-Summe und die E1kv-Zeilen. Für den PDF-Export und die Datenspeicherung für Folgejahre gibt es einen Jahresbeitrag von 29 Euro. Für Power-User mit mehr als drei Brokern gibt es einen Pro-Plan um 69 Euro pro Jahr.",
+          a: "Der Basiszugang ist kostenlos — du siehst deine KeSt-Summe und die E1kv-Kennzahlen. Für den PDF-Export und die Datenspeicherung für Folgejahre gibt es einen Jahresbeitrag von 29 Euro. Für Power-User mit mehr als drei Brokern gibt es einen Pro-Plan um 69 Euro pro Jahr.",
         },
         {
           q: "Bin ich der richtige User für KestKlar?",
-          a: "Ja, wenn du bei einem nicht-österreichischen Broker investierst — zum Beispiel Trade Republic, Interactive Brokers oder Scalable Capital. Diese Broker führen keine österreichische KeSt automatisch ab. Du musst sie selbst berechnen und in der Einkommensteuererklärung angeben. Genau das macht KestKlar für dich.",
+          a: "Ja, wenn für dein Depot keine österreichische KeSt automatisch abgeführt wird — zum Beispiel bei Interactive Brokers, Scalable Capital nach aktuellem Österreich-Status oder bei Trade Republic für Steuerjahr 2024 und den Zeitraum vor 24. April 2025. Dann musst du die Werte selbst berechnen und in der Einkommensteuererklärung angeben.",
         },
         {
           q: "Was ist wenn ich nur bei einer österreichischen Bank investiere?",
@@ -92,7 +92,7 @@ export const translations = {
     },
     cta: {
       h2: "Nie wieder Stunden mit der E1kv verschwenden.",
-      sub: "Trag dich in die Warteliste ein. Wir melden uns sobald KestKlar für das Steuerjahr 2024 startet — rechtzeitig vor der Abgabefrist.",
+      sub: "Trag dich in die Warteliste ein. Wir melden uns, sobald KestKlar für die nächsten unterstützten Steuerjahre startet.",
     },
     footer: {
       legal: "Kein Steuerberater · Nur ein Berechnungstool · Daten bleiben in der EU",
@@ -112,7 +112,7 @@ export const translations = {
       badge: "Now in development · Waitlist open",
       h1a: "Austrian investor tax,",
       h1b: "done in 10 minutes.",
-      sub: "Upload your broker PDF. KestKlar calculates your KeSt — including ETF deemed distributions, cross-broker loss netting, and exact E1kv line numbers.",
+      sub: "Upload your broker PDF. KestKlar calculates your KeSt — including ETF deemed distributions, cross-broker loss netting, and the relevant E1kv field values.",
       lossLabel: "What Austrians pay every year",
       lossAdvisor: "Tax advisor",
       lossAdvisorPrice: "€150–300",
@@ -140,8 +140,8 @@ export const translations = {
       s1b: "Upload your annual statement from one or more brokers. KestKlar reads every transaction automatically.",
       s2t: "We calculate everything",
       s2b: "KeSt on dividends, capital gains, ETF deemed distributions, cross-broker loss netting, and foreign withholding tax credits.",
-      s3t: "Copy your E1kv lines",
-      s3b: "You see exactly which number goes in which line of your E1kv. Just type it into FinanzOnline. Done.",
+      s3t: "Prepare your E1kv fields",
+      s3b: "You see which amounts belong in which E1kv fields. Then you transfer them into FinanzOnline.",
       avg: "Average time:",
       avgVal: "8 minutes",
       avgSub: "for an investor with 2 brokers and 3 ETFs.",
@@ -150,7 +150,7 @@ export const translations = {
       eyebrow: "What Austrian investors are saying",
       h2a: "The problem is real.",
       h2b: "Every January, without fail.",
-      stat: "Over 1.2 million Austrians hold securities at non-Austrian brokers. Every single one faces this problem every year.",
+      stat: "Many Austrian investors hold securities with foreign or non-withholding brokers. For them, the E1kv can become complex every year.",
     },
     faq: {
       heading: "Frequently asked questions",
@@ -158,11 +158,11 @@ export const translations = {
       items: [
         {
           q: "What does KestKlar cost?",
-          a: "Basic access is free — you see your total KeSt and the E1kv line numbers. The PDF export and year-over-year data storage costs €29 per year. For power users with more than three brokers there's a Pro plan at €69 per year.",
+          a: "Basic access is free — you see your total KeSt and the E1kv field values. The PDF export and year-over-year data storage costs €29 per year. For power users with more than three brokers there's a Pro plan at €69 per year.",
         },
         {
           q: "Am I the right user for KestKlar?",
-          a: "Yes, if you invest through a non-Austrian broker — for example Trade Republic, Interactive Brokers, or Scalable Capital. These brokers do not automatically withhold Austrian KeSt. You need to calculate it yourself and report it in your tax return. That's exactly what KestKlar does for you.",
+          a: "Yes, if Austrian KeSt is not automatically withheld for your account — for example Interactive Brokers, Scalable Capital based on its current Austrian status, or Trade Republic for tax year 2024 and the period before 24 April 2025. In those cases you need to calculate the values yourself and report them in your tax return.",
         },
         {
           q: "What if I only invest through an Austrian bank?",
@@ -188,7 +188,7 @@ export const translations = {
     },
     cta: {
       h2: "Stop spending hours on your tax return.",
-      sub: "Join the waitlist. We'll email you when KestKlar launches for tax year 2024 — well before the filing deadline.",
+      sub: "Join the waitlist. We'll email you when KestKlar launches for the next supported tax years.",
     },
     footer: {
       legal: "Not a tax advisor · Calculation tool only · Data stays in the EU",

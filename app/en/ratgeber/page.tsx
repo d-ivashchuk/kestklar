@@ -83,7 +83,7 @@ export default function EnRatgeberPage() {
           Austrian Tax Guides for Investors
         </h1>
         <p className="text-sm text-muted-foreground leading-relaxed max-w-xl">
-          Practical, factually verified articles on Austrian capital gains tax. Written for investors using Interactive Brokers, Scalable Capital, DEGIRO, or any other non-tax-simple broker.
+          Practical, source-linked articles on Austrian capital gains tax. Written for investors using Interactive Brokers, Scalable Capital, DEGIRO, or any other non-tax-simple broker.
         </p>
       </div>
 
@@ -117,7 +117,7 @@ export default function EnRatgeberPage() {
       <div className="mt-16 border border-border p-6 bg-secondary">
         <p className="text-xs text-muted-foreground uppercase tracking-wider mb-3">Skip the manual work</p>
         <p className="text-sm text-foreground leading-relaxed mb-4">
-          KestKlar automates everything described in these guides — broker PDF import, ÖEKB data, loss netting, withholding tax credit — and delivers the exact E1kv field values in under 10 minutes.
+          KestKlar automates the mechanical work described in these guides — broker PDF import, ÖEKB data, loss netting, withholding tax credit — and prepares the relevant E1kv field values.
         </p>
         <Link href="/#waitlist" className="inline-block text-xs font-medium bg-foreground text-background px-4 py-2 hover:opacity-80 transition-opacity">
           Join the waitlist for free →

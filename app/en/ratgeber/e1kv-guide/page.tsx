@@ -55,7 +55,7 @@ export default function E1kvGuidePage() {
               The <strong className="text-foreground">E1kv</strong> (Beilage zur Einkommensteuererklärung für Einkünfte aus Kapitalvermögen) is a supplementary schedule to the Austrian income tax return. You need it whenever you have capital income from sources for which no Austrian capital gains tax (KeSt) was automatically withheld.
             </p>
             <p>
-              This affects investors who use foreign brokers such as <strong className="text-foreground">Interactive Brokers</strong>, <strong className="text-foreground">Scalable Capital</strong>, <strong className="text-foreground">DEGIRO</strong>, or <strong className="text-foreground">Bitpanda</strong>. These brokers are not Austrian credit institutions and do not remit the 27.5% KeSt to the tax authority on your behalf.
+              This affects investors who use foreign brokers such as <strong className="text-foreground">Interactive Brokers</strong>, <strong className="text-foreground">Scalable Capital</strong>, or <strong className="text-foreground">DEGIRO Germany</strong>. What matters is not the brand name but whether Austrian KeSt is actually withheld for your account.
             </p>
             <p>
               Note: <strong className="text-foreground">Trade Republic</strong> became tax-simple (steuereinfach) in Austria on 24 April 2025. For the tax year 2024 and the period before April 2025, you still need to file an E1kv.
@@ -92,9 +92,14 @@ export default function E1kvGuidePage() {
                   desc: "Same as 937, but for ETF units held with an Austrian depository bank.",
                 },
                 {
-                  kz: "KZ 985",
+                  kz: "KZ 863",
                   label: "Foreign dividends / ongoing income",
-                  desc: "Dividends and interest from foreign securities. For most investors using a foreign broker, this is the most important recurring income line.",
+                  desc: "Recurring capital income taxed at the 27.5% special rate. Fund distributions are reported separately in KZ 898.",
+                },
+                {
+                  kz: "KZ 898",
+                  label: "Foreign distributions from investment funds",
+                  desc: "Actual distributions from funds/ETFs held in a foreign custody account.",
                 },
                 {
                   kz: "KZ 994",
@@ -102,9 +107,9 @@ export default function E1kvGuidePage() {
                   desc: "Profits from selling equities, ETFs, or bonds. Cost basis is determined using the weighted average price method (gleitender Durchschnittspreis).",
                 },
                 {
-                  kz: "KZ 996",
+                  kz: "KZ 892",
                   label: "Realised losses",
-                  desc: "Losses from securities sales. Offset against gains (loss netting). No carryforward to future tax years is possible.",
+                  desc: "Foreign losses from securities sales. Offset against gains (loss netting). No carryforward to future tax years is possible.",
                 },
                 {
                   kz: "KZ 998",

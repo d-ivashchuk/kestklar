@@ -112,7 +112,7 @@ export default function ScalableSteuerPage() {
               <strong className="text-foreground">Was er kann:</strong> Beträge sind nach österreichischem Recht aufbereitet, mit gleitendem Durchschnittspreis (§27a Abs 4 Z 3 EStG), in EUR umgerechnet, AgE-Korrektur der Anschaffungskosten enthalten, Mapping zu E1kv-Kennzahlen ist klar.
             </p>
             <p>
-              <strong className="text-foreground">Was er nicht ist:</strong> Keine Jahressteuerbescheinigung im Sinne des §96 EStG (es wird ja keine KeSt abgeführt). Es ist ein freiwilliger Service ohne Gewähr. Korrekturen an den OeKB-Daten muss du ggf. selbst nachverfolgen. Quelle:{" "}
+              <strong className="text-foreground">Was er nicht ist:</strong> Keine Jahressteuerbescheinigung im Sinne des §96 EStG (es wird ja keine KeSt abgeführt). Es ist ein freiwilliger Service ohne Gewähr. Korrekturen an den OeKB-Daten musst du ggf. selbst nachverfolgen. Quelle:{" "}
               <a href="https://help.scalable.capital/de-AT/steuern-de12f868/bietet-scalable-capital-einen-steuerbericht-an-e0993ae8" target="_blank" rel="noopener noreferrer" className="text-foreground underline underline-offset-2">
                 Scalable Help &mdash; Steuerbericht
               </a>
@@ -164,13 +164,13 @@ export default function ScalableSteuerPage() {
           <Section title="E1kv 2024 und 2025: Die wichtigsten Kennzahlen">
             <div className="mt-2 border border-border divide-y divide-border">
               {[
-                { kz: "KZ 863", label: "Ausländische Einkünfte aus Kapitalüberlassung (27,5%)", desc: "Zinsen aus Bonds, ggf. Cash-Verzinsung." },
-                { kz: "KZ 864", label: "Realisierte Wertsteigerungen (27,5%)", desc: "Aktien-, ETF-, ETP-Verkaufsgewinne mit gleitendem Durchschnittspreis." },
-                { kz: "KZ 865", label: "Einkünfte aus Derivaten (27,5%)", desc: "Optionen, Futures, Zertifikate." },
-                { kz: "KZ 891", label: "Verluste aus Kapitalvermögen (27,5%)", desc: "Realisierte Verluste — innerhalb desselben Jahres mit Gewinnen verrechenbar." },
-                { kz: "KZ 898", label: "Anrechenbare ausländische Quellensteuer", desc: "Z.B. 15% US-Quellensteuer auf Dividenden mit W-8BEN." },
+                { kz: "KZ 863", label: "Ausländische Dividenden, Zinsen und laufende Erträge", desc: "Laufende Kapitalerträge mit 27,5% Sondersteuersatz, brutto und in EUR. Fonds-Ausschüttungen separat in KZ 898." },
+                { kz: "KZ 898", label: "Ausländische Ausschüttungen aus Investmentfonds", desc: "Cash-Ausschüttungen von Fonds/ETFs. Brutto vor Quellensteuer." },
+                { kz: "KZ 994", label: "Realisierte Wertsteigerungen (Auslandsdepot)", desc: "Aktien-, ETF-, ETP-Verkaufsgewinne mit gleitendem Durchschnittspreis." },
+                { kz: "KZ 892", label: "Realisierte Verluste (Auslandsdepot)", desc: "Realisierte Verluste — innerhalb desselben Jahres mit Gewinnen verrechenbar." },
+                { kz: "KZ 998", label: "Anrechenbare ausländische Quellensteuer", desc: "Z.B. 15% US-Quellensteuer auf Dividenden mit W-8BEN." },
                 { kz: "KZ 937", label: "Ausschüttungsgleiche Erträge (Auslandsdepot)", desc: "Thesaurierende Meldefonds laut OeKB-Daten." },
-                { kz: "KZ 939", label: "Anschaffungskosten-Korrektur Investmentfonds", desc: "Erhöhung der AK durch versteuerte AgE — verhindert Doppelbesteuerung beim Verkauf." },
+                { kz: "AK-Fortschreibung", label: "Anschaffungskosten-Korrektur Investmentfonds", desc: "Keine normale Steuerzeile wie Erträge: versteuerte AgE erhöhen deine steuerlichen AK und müssen beim späteren Verkauf in KZ 994 berücksichtigt werden." },
               ].map((row) => (
                 <div key={row.kz} className="p-4 grid grid-cols-3 gap-3">
                   <div>

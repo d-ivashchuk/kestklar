@@ -44,7 +44,7 @@ export default function HowToCalculateKestPage() {
             How to Calculate KeSt with Non-Tax-Simple Brokers
           </h1>
           <p className="text-base text-muted-foreground leading-relaxed">
-            Interactive Brokers, Scalable Capital, DEGIRO — these brokers do not pay Austrian tax on your behalf. You must calculate the 27.5% KeSt yourself, net your losses across all accounts, and report the result in the E1kv. Here is how it works.
+            Interactive Brokers, Scalable Capital, DEGIRO Germany — with non-withholding accounts like these, Austrian tax is not paid through the broker. You must calculate the 27.5% KeSt yourself, net your losses across all accounts, and report the result in the E1kv. Here is how it works.
           </p>
         </header>
 
@@ -52,10 +52,10 @@ export default function HowToCalculateKestPage() {
 
           <Section title="Why do you have to do this yourself?">
             <p>
-              Austrian banks and <strong className="text-foreground">tax-simple brokers</strong> (Erste, Raiffeisen, Flatex Austria, and Trade Republic from April 2025 onwards) withhold KeSt automatically and remit it directly to the tax authority. You do not need to report anything — it is handled for you.
+              Austrian banks and <strong className="text-foreground">tax-simple brokers</strong> (Erste, Raiffeisen, Flatex Austria, and Trade Republic from April 2025 onwards) generally withhold KeSt automatically and remit it directly to the tax authority. For these finally taxed amounts, an E1kv entry is usually not required.
             </p>
             <p>
-              <strong className="text-foreground">Non-tax-simple brokers</strong> — all foreign brokers without an Austrian banking licence — do not do this. They provide you with an annual statement listing all your transactions. It is your responsibility to calculate what you owe and report it in the <strong className="text-foreground">E1kv supplementary schedule</strong> of your income tax return.
+              <strong className="text-foreground">Non-tax-simple brokers</strong> do not do this. What matters is whether your specific account is actually subject to Austrian KeSt withholding. If not, the broker usually only provides reports or transaction data; it is your responsibility to calculate what you owe and report it in the <strong className="text-foreground">E1kv supplementary schedule</strong> of your income tax return.
             </p>
           </Section>
 
@@ -127,7 +127,7 @@ export default function HowToCalculateKestPage() {
             <div className="mt-2 space-y-2">
               {[
                 { broker: "Interactive Brokers", doc: "Annual Activity Statement (PDF or CSV, available in the Client Portal under Reports → Tax)" },
-                { broker: "Scalable Capital", doc: "Jahressteuerbescheinigung — annual tax certificate (PDF, under Steuern & Dokumente in the Scalable portal)" },
+                { broker: "Scalable Capital", doc: "Austrian tax report / KPMG tax report, if available for your tax year" },
                 { broker: "DEGIRO", doc: "Annual Report (PDF, under Inbox in the DEGIRO dashboard)" },
                 { broker: "Trade Republic", doc: "Tax report (PDF, in the Trade Republic app under Account → Documents)" },
               ].map((row) => (

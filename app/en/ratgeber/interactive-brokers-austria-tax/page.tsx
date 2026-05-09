@@ -166,10 +166,11 @@ export default function IBTaxEnPage() {
           <Section title="Step 6: Enter the amounts in the E1kv">
             <div className="mt-2 border border-border divide-y divide-border">
               {[
-                { kz: "KZ 985", label: "Foreign dividends and interest", desc: "Gross dividends and credit interest from the IBKR statement, in EUR." },
+                { kz: "KZ 863", label: "Foreign dividends, interest and recurring income", desc: "Recurring capital income taxed at the 27.5% special rate, gross and converted to EUR. Fund distributions are separate in KZ 898." },
+                { kz: "KZ 898", label: "Foreign distributions from investment funds", desc: "Cash distributions from funds/ETFs held in a foreign account. Gross before withholding tax." },
                 { kz: "KZ 937", label: "Deemed distributions (foreign account)", desc: "Sum of AgE for your ETFs (from OeKB), since your account is held with a foreign broker." },
                 { kz: "KZ 994", label: "Realised capital gains", desc: "Total gains from sales, calculated with the moving average price in EUR." },
-                { kz: "KZ 996", label: "Realised capital losses", desc: "Total losses. Offset against gains and ongoing income within the same year." },
+                { kz: "KZ 892", label: "Realised capital losses", desc: "Foreign sale losses. Offset against gains and ongoing income within the same year." },
                 { kz: "KZ 998", label: "Creditable foreign withholding tax", desc: "E.g. US withholding tax (15% with valid W-8BEN). Reduces your KeSt liability." },
               ].map((row) => (
                 <div key={row.kz} className="p-4 grid grid-cols-3 gap-3">
@@ -191,7 +192,7 @@ export default function IBTaxEnPage() {
 
           <Section title="Loss netting">
             <p>
-              Realised losses (KZ 996) are offset against gains and ongoing income within the same calendar year. If you have multiple brokers (e.g. IBKR + Scalable), you can net losses across brokers &mdash; that is exactly what the E1kv is for.
+              Realised losses from a foreign account (typically KZ 892) are offset against gains and ongoing income in the same 27.5% bucket within the same calendar year. If you have multiple brokers (e.g. IBKR + Scalable), you can net losses across brokers &mdash; that is exactly what the E1kv is for.
             </p>
             <p>
               <strong className="text-foreground">Important:</strong> A loss carry-forward to future years is <em>not</em> allowed for capital income (§27 Abs 8 Z 3 EStG). Unused losses simply expire on 31 December.

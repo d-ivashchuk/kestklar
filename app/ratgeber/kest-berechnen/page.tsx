@@ -5,7 +5,7 @@ import { JsonLdArticle, JsonLdBreadcrumb } from "@/components/json-ld";
 export const metadata: Metadata = {
   title: "KeSt berechnen bei Interactive Brokers, Scalable Capital & Co – KestKlar",
   description:
-    "Schritt-für-Schritt: Wie du die österreichische Kapitalertragsteuer bei nicht-steuereinfachen Brokern berechnest. Mit Verlustausgleich, Quellensteuer-Anrechnung und E1kv-Zeilen.",
+    "Schritt-für-Schritt: Wie du die österreichische Kapitalertragsteuer bei nicht-steuereinfachen Brokern berechnest. Mit Verlustausgleich, Quellensteuer-Anrechnung und E1kv-Kennzahlen.",
   alternates: {
     canonical: "https://kestklar.at/ratgeber/kest-berechnen",
     languages: { en: "https://kestklar.at/en/ratgeber/how-to-calculate-kest" },
@@ -44,7 +44,7 @@ export default function KestBerechnenPage() {
             KeSt berechnen bei nicht-steuereinfachen Brokern
           </h1>
           <p className="text-base text-muted-foreground leading-relaxed">
-            Interactive Brokers, Scalable Capital, DEGIRO — diese Broker zahlen die österreichische Steuer nicht für dich. Du musst die 27,5% KeSt selbst berechnen, den Verlustausgleich über alle Depots durchführen und das Ergebnis in der E1kv angeben. So funktioniert es.
+            Interactive Brokers, Scalable Capital, DEGIRO Deutschland — bei solchen nicht automatisch besteuerten Depots zahlst du die österreichische Steuer nicht über den Broker. Du musst die 27,5% KeSt selbst berechnen, den Verlustausgleich über alle Depots durchführen und das Ergebnis in der E1kv angeben. So funktioniert es.
           </p>
         </header>
 
@@ -52,10 +52,10 @@ export default function KestBerechnenPage() {
 
           <Section title="Warum musst du das selbst machen?">
             <p>
-              Österreichische Banken und sogenannte <strong className="text-foreground">steuereinfache Broker</strong> (Erste, Raiffeisen, Flatex Austria, seit April 2025 auch Trade Republic) behalten die KeSt automatisch ein und führen sie direkt ans Finanzamt ab. Du musst in der Steuererklärung nichts angeben — alles ist erledigt.
+              Österreichische Banken und sogenannte <strong className="text-foreground">steuereinfache Broker</strong> (Erste, Raiffeisen, Flatex Austria, seit April 2025 auch Trade Republic) behalten die KeSt grundsätzlich automatisch ein und führen sie direkt ans Finanzamt ab. Für diese endbesteuerten Erträge ist normalerweise keine E1kv-Eintragung nötig.
             </p>
             <p>
-              <strong className="text-foreground">Nicht-steuereinfache Broker</strong> — das sind alle ausländischen Broker ohne österreichische Banklizenz — tun das nicht. Sie liefern dir einen Jahresbericht mit all deinen Transaktionen. Was du dem Finanzamt schuldest, musst du selbst ausrechnen und in der <strong className="text-foreground">Beilage E1kv</strong> deiner Einkommensteuererklärung angeben.
+              <strong className="text-foreground">Nicht-steuereinfache Broker</strong> tun das nicht. Entscheidend ist, ob dein Depot tatsächlich einer österreichischen KeSt-Abfuhr unterliegt. Wenn nicht, liefert der Broker meist nur Berichte oder Transaktionsdaten; was du dem Finanzamt schuldest, musst du selbst ausrechnen und in der <strong className="text-foreground">Beilage E1kv</strong> deiner Einkommensteuererklärung angeben.
             </p>
           </Section>
 
@@ -127,7 +127,7 @@ export default function KestBerechnenPage() {
             <div className="mt-2 space-y-2">
               {[
                 { broker: "Interactive Brokers", doc: "Annual Activity Statement (PDF oder CSV, im Client Portal unter Reports → Tax)" },
-                { broker: "Scalable Capital", doc: "Jahressteuerbescheinigung (PDF, unter Steuern & Dokumente im Scalable Portal)" },
+                { broker: "Scalable Capital", doc: "Österreichischer Steuerreport / KPMG-Steuerreport, falls für dein Steuerjahr verfügbar" },
                 { broker: "DEGIRO", doc: "Annual Report / Jahresübersicht (PDF, unter Postfach im DEGIRO Dashboard)" },
                 { broker: "Trade Republic", doc: "Steuerreport (PDF, in der Trade Republic App unter Konto → Dokumente)" },
               ].map((row) => (
@@ -154,7 +154,7 @@ export default function KestBerechnenPage() {
           <div className="mt-12 border border-border p-6 bg-secondary">
             <p className="text-xs text-muted-foreground uppercase tracking-wider mb-3">Das übernimmt KestKlar</p>
             <p className="text-sm text-foreground leading-relaxed mb-4">
-              PDF hochladen, ÖEKB-Daten automatisch abrufen, FIFO-Berechnung, Verlustausgleich über mehrere Broker, Quellensteuer-Anrechnung — KestKlar liefert dir die fertigen E1kv-Zeilen in unter 10 Minuten.
+              PDF hochladen, ÖEKB-Daten automatisch abrufen, gleitenden Durchschnittspreis berechnen, Verlustausgleich über mehrere Broker, Quellensteuer-Anrechnung — KestKlar bereitet die relevanten E1kv-Kennzahlen für dich auf.
             </p>
             <div className="flex flex-wrap gap-3">
               <Link href="/#waitlist" className="inline-block text-xs font-medium bg-foreground text-background px-4 py-2 hover:opacity-80 transition-opacity">

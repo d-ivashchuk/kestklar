@@ -172,7 +172,7 @@ export default function DegiroEnPage() {
                 { kz: "KZ 892", label: "Realised capital losses (foreign)", desc: "Sale losses. Offset against gains within the same year." },
                 { kz: "KZ 409", label: "Foreign dividends on equities (27.5%)", desc: "Cash dividends on individual equities. Gross before withholding tax." },
                 { kz: "KZ 998", label: "Creditable foreign withholding tax", desc: "E.g. 15% US withholding (with W-8BEN). Reduces the KeSt liability directly." },
-                { kz: "KZ 985", label: "Flat-rate basis for non-reporting funds", desc: "90/10 rule per §186 Abs 2 Z 3 InvFG, if any of your funds is non-reporting." },
+                { kz: "KZ 937", label: "Flat-rate deemed income for non-reporting funds", desc: "For a foreign account this is still reported in the fund-income block; 90/10 rule per §186 Abs 2 Z 3 InvFG." },
               ].map((row) => (
                 <div key={row.kz} className="p-4 grid grid-cols-3 gap-3">
                   <div>

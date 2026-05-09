@@ -36,8 +36,8 @@ export const brokers: Broker[] = [
       en: "Calculate KeSt with Trade Republic — KestKlar",
     },
     metaDesc: {
-      de: "KestKlar liest deine Trade Republic Jahresabrechnung automatisch aus und berechnet deine österreichische KeSt inklusive ETF-Erträge und E1kv-Zeilen.",
-      en: "KestKlar automatically reads your Trade Republic annual statement and calculates your Austrian KeSt including ETF distributions and E1kv lines.",
+      de: "KestKlar liest deine Trade Republic Jahresabrechnung automatisch aus und berechnet deine österreichische KeSt inklusive ETF-Erträge und E1kv-Kennzahlen.",
+      en: "KestKlar automatically reads your Trade Republic annual statement and calculates your Austrian KeSt including ETF distributions and E1kv field values.",
     },
     keyFacts: {
       de: [
@@ -70,21 +70,21 @@ export const brokers: Broker[] = [
       en: "Calculate KeSt with Interactive Brokers (IBKR) — KestKlar",
     },
     metaDesc: {
-      de: "KestKlar berechnet deine österreichische KeSt für Interactive Brokers Konten inklusive US-Quellensteuer-Anrechnung und E1kv-Zeilen.",
-      en: "KestKlar calculates your Austrian KeSt for Interactive Brokers accounts including US withholding tax credits and E1kv lines.",
+      de: "KestKlar berechnet deine österreichische KeSt für Interactive Brokers Konten inklusive US-Quellensteuer-Anrechnung und E1kv-Kennzahlen.",
+      en: "KestKlar calculates your Austrian KeSt for Interactive Brokers accounts including US withholding tax credits and E1kv field values.",
     },
     keyFacts: {
       de: [
         "PDF/CSV: Annual Activity Statement aus dem IBKR Client Portal herunterladen",
         "US-Quellensteuer (15%) wird automatisch als anrechenbare Steuer erfasst",
-        "Fremdwährungsgewinne werden korrekt zum Transaktionskurs umgerechnet",
-        "FIFO-Kostenbasis wird korrekt berechnet auch bei mehrfachen Käufen derselben Position",
+        "Fremdwährungsbeträge werden je Transaktion in EUR umgerechnet",
+        "Die österreichische Kostenbasis wird mit gleitendem Durchschnittspreis berechnet — nicht mit IBKR-FIFO",
       ],
       en: [
         "PDF/CSV: Download your Annual Activity Statement from the IBKR Client Portal",
         "US withholding tax (15%) is automatically captured as creditable tax",
-        "Foreign currency gains are correctly converted at the transaction exchange rate",
-        "FIFO cost basis is correctly calculated even for multiple purchases of the same position",
+        "Foreign-currency amounts are converted to EUR per transaction",
+        "The Austrian cost basis is calculated using the moving average price — not IBKR FIFO",
       ],
     },
   },
@@ -93,29 +93,29 @@ export const brokers: Broker[] = [
     name: "Scalable Capital",
     status: "supported",
     country: "DE",
-    pdfName: { de: "Jahressteuerbescheinigung (PDF)", en: "Annual tax certificate (PDF)" },
+    pdfName: { de: "Österreichischer Steuerreport (PDF)", en: "Austrian tax report (PDF)" },
     transactions: 24,
     description: {
-      de: "Scalable Capital ist ein deutscher Neo-Broker mit starkem Wachstum in Österreich. Als deutsches Institut führt Scalable keine österreichische KeSt ab — österreichische Nutzer müssen ihre Kapitalerträge selbst in der E1kv deklarieren.",
-      en: "Scalable Capital is a German neo-broker growing fast in Austria. As a German institution, Scalable does not withhold Austrian KeSt — Austrian users must declare their investment income themselves in the E1kv.",
+      de: "Scalable Capital ist ein deutscher Neo-Broker mit starkem Wachstum in Österreich. Nach aktuellem öffentlich kommuniziertem Stand führt Scalable für österreichische Kund:innen keine österreichische KeSt ab — diese Kapitalerträge müssen daher selbst in der E1kv deklariert werden.",
+      en: "Scalable Capital is a German neo-broker growing fast in Austria. Based on its currently public Austrian tax status, Scalable does not withhold Austrian KeSt for Austrian customers — this investment income must therefore be declared in the E1kv.",
     },
     metaTitle: {
       de: "KeSt berechnen mit Scalable Capital — KestKlar",
       en: "Calculate KeSt with Scalable Capital — KestKlar",
     },
     metaDesc: {
-      de: "KestKlar liest deine Scalable Capital Jahressteuerbescheinigung automatisch aus und berechnet deine österreichische KeSt inklusive ETF-Erträge und E1kv-Zeilen.",
-      en: "KestKlar automatically reads your Scalable Capital annual tax certificate and calculates your Austrian KeSt including ETF distributions and E1kv lines.",
+      de: "KestKlar liest deinen österreichischen Scalable Capital Steuerreport automatisch aus und berechnet deine österreichische KeSt inklusive ETF-Erträge und E1kv-Kennzahlen.",
+      en: "KestKlar automatically reads your Austrian Scalable Capital tax report and calculates your Austrian KeSt including ETF distributions and E1kv field values.",
     },
     keyFacts: {
       de: [
-        "PDF: Jahressteuerbescheinigung im Scalable Portal unter Steuern & Dokumente herunterladen",
+        "PDF: österreichischen Steuerreport im Scalable Portal herunterladen, sobald er für dein Steuerjahr verfügbar ist",
         "Alle Dividenden, ETF-Ausschüttungen und realisierten Kursgewinne werden erkannt",
         "Ausschüttungsgleiche Erträge für thesaurierende ETFs werden via ÖEKB abgerufen",
         "Verlustausgleich mit Trade Republic, IBKR und anderen nicht-steuereinfachen Brokern inklusive",
       ],
       en: [
-        "PDF: Download your annual tax certificate from the Scalable portal under Taxes & Documents",
+        "PDF: download your Austrian tax report from the Scalable portal once it is available for your tax year",
         "All dividends, ETF distributions, and realized capital gains are recognized",
         "Deemed distributions for accumulating ETFs are fetched via ÖEKB",
         "Cross-broker loss netting with Trade Republic, IBKR, and other non-withholding brokers included",

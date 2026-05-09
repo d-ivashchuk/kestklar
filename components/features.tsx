@@ -8,8 +8,8 @@ const features = [
     body: "Ausschüttungsgleiche Erträge deiner thesaurierenden ETFs werden direkt aus der ÖEKB-Datenbank abgerufen. Du musst nichts selbst nachschlagen.",
   },
   {
-    title: "Genaue E1kv-Zeilen",
-    body: "Kein Raten welche Zahl wohin kommt. KestKlar sagt dir exakt: Zeile 984 — 320 Euro. Zeile 994 — 3.180 Euro. Einfach abtippen.",
+    title: "Passende E1kv-Kennzahlen",
+    body: "Kein Raten welche Zahl wohin kommt. KestKlar ordnet Erträge, Verluste, Quellensteuer und Fondspositionen den passenden E1kv-Kennzahlen zu.",
   },
   {
     title: "Nichtmeldefonds-Warnung",

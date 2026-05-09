@@ -124,13 +124,13 @@ export default function DeemedDistributionsPage() {
               Each fund has a different reference date. For each ETF you need the correct ECB exchange rate on a different day. The ÖEKB data must be downloaded and processed manually. Investors who hold multiple ETFs across several accounts can easily spend a few hours on this alone.
             </p>
             <p>
-              Tax-simple brokers (e.g. Austrian banks) handle this automatically. With Interactive Brokers, Scalable Capital, or Bitpanda the responsibility falls entirely on you.
+              Tax-simple brokers (e.g. Austrian banks) handle this automatically. With foreign accounts such as Interactive Brokers, Scalable Capital, or DEGIRO Germany, the responsibility falls on you.
             </p>
           </Section>
 
           <Section title="What about distributing ETFs?">
             <p>
-              Distributing ETFs pay income directly to investors. Those payouts are immediately taxable (field KZ 985 of the E1kv) and appear in the broker report. Deemed distributions can still arise alongside distributions — a portion of the fund's income is reported annually through the ÖEKB even when some income is paid out.
+              Distributing ETFs pay income directly to investors. Those payouts are immediately taxable; for a foreign custody account, actual fund distributions are typically reported in KZ 898. Deemed distributions can still arise alongside distributions — a portion of the fund's income is reported annually through the ÖEKB even when some income is paid out.
             </p>
           </Section>
 

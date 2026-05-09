@@ -104,7 +104,7 @@ export default function DegiroSteuerPage() {
               <a href="https://www.jusline.at/gesetz/estg/paragraf/27a" target="_blank" rel="noopener noreferrer" className="text-foreground underline underline-offset-2">
                 §27a Abs 4 Z 3 EStG
               </a>{" "}
-              den <strong className="text-foreground">gleitenden Durchschnittspreis</strong>: bei mehreren Käufen derselben ISIM wird ein gewichteter Mittelwert pro Stück gebildet, in <strong className="text-foreground">Euro</strong>.
+              den <strong className="text-foreground">gleitenden Durchschnittspreis</strong>: bei mehreren Käufen derselben ISIN wird ein gewichteter Mittelwert pro Stück gebildet, in <strong className="text-foreground">Euro</strong>.
             </p>
             <p>
               Wichtig: <strong className="text-foreground">Anschaffungsnebenkosten</strong> (Order-Provisionen, externe Gebühren der Handelsplätze) sind im Privatvermögen <em>nicht</em> abzugsfähig — §27a Abs 4 Z 2 EStG i.V.m. §20 Abs 2 EStG (Werbungskostenabzugsverbot, vom VfGH bestätigt G&nbsp;168/2017). Die in DEGIROs P&amp;L-Ansicht ausgewiesenen Gewinne können daher nicht 1:1 übernommen werden.
@@ -189,7 +189,7 @@ export default function DegiroSteuerPage() {
                 { kz: "KZ 892", label: "Realisierte Kursverluste (ausländisch)", desc: "Verluste aus Verkäufen. Innerhalb desselben Jahres mit Gewinnen verrechenbar." },
                 { kz: "KZ 409", label: "Ausländische Dividenden auf Aktien (27,5%)", desc: "Bardividenden auf Einzelaktien. Brutto vor Quellensteuer." },
                 { kz: "KZ 998", label: "Anrechenbare ausländische Quellensteuer", desc: "Z.B. 15% US-Quellensteuer (mit W-8BEN). Reduziert die KeSt-Schuld direkt." },
-                { kz: "KZ 985", label: "Pauschalbemessung Nichtmeldefonds", desc: "90/10-Regel nach §186 Abs 2 Z 3 InvFG, falls einer deiner Fonds kein Meldefonds ist." },
+                { kz: "KZ 937", label: "Pauschal ermittelte AgE bei Nichtmeldefonds", desc: "Bei Auslandsdepot ebenfalls im Fonds-Block erfassen; 90/10-Regel nach §186 Abs 2 Z 3 InvFG, falls einer deiner Fonds kein Meldefonds ist." },
               ].map((row) => (
                 <div key={row.kz} className="p-4 grid grid-cols-3 gap-3">
                   <div>

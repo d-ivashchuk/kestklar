@@ -167,13 +167,13 @@ export default function ScalableEnPage() {
           <Section title="E1kv 2024 and 2025: the most important field numbers">
             <div className="mt-2 border border-border divide-y divide-border">
               {[
-                { kz: "KZ 863", label: "Foreign income from capital lending (27.5%)", desc: "Bond interest; cash interest where applicable." },
-                { kz: "KZ 864", label: "Realised capital gains (27.5%)", desc: "Equity, ETF, ETP sale gains computed with the moving average price." },
-                { kz: "KZ 865", label: "Income from derivatives (27.5%)", desc: "Options, futures, certificates." },
-                { kz: "KZ 891", label: "Capital losses (27.5%)", desc: "Realised losses &mdash; offset against gains within the same year." },
-                { kz: "KZ 898", label: "Creditable foreign withholding tax", desc: "E.g. 15% US withholding on dividends with W-8BEN." },
+                { kz: "KZ 863", label: "Foreign dividends, interest and recurring income", desc: "Recurring capital income taxed at the 27.5% special rate, gross and converted to EUR. Fund distributions are separate in KZ 898." },
+                { kz: "KZ 898", label: "Foreign distributions from investment funds", desc: "Cash distributions from funds/ETFs. Gross before withholding tax." },
+                { kz: "KZ 994", label: "Realised capital gains (foreign account)", desc: "Equity, ETF, ETP sale gains computed with the moving average price." },
+                { kz: "KZ 892", label: "Realised losses (foreign account)", desc: "Realised losses &mdash; offset against gains within the same year." },
+                { kz: "KZ 998", label: "Creditable foreign withholding tax", desc: "E.g. 15% US withholding on dividends with W-8BEN." },
                 { kz: "KZ 937", label: "Deemed distributions (foreign account)", desc: "Accumulating reporting funds per OeKB." },
-                { kz: "KZ 939", label: "Cost-basis adjustment for investment funds", desc: "Increase in cost basis from already-taxed AgE &mdash; prevents double taxation at sale." },
+                { kz: "Cost basis", label: "Investment-fund cost-basis adjustment", desc: "Not a normal income field: already-taxed AgE increase your tax cost basis and must be reflected when later calculating KZ 994." },
               ].map((row) => (
                 <div key={row.kz} className="p-4 grid grid-cols-3 gap-3">
                   <div>
