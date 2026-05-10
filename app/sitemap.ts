@@ -45,11 +45,21 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.9,
   }));
 
+  const toolsPages = [
+    { url: `${base}/tools`, lastModified: new Date(), changeFrequency: "weekly" as const, priority: 0.8 },
+    { url: `${base}/tools/kest-rechner`, lastModified: new Date(), changeFrequency: "monthly" as const, priority: 0.9 },
+    { url: `${base}/tools/meldefonds-vergleich`, lastModified: new Date(), changeFrequency: "monthly" as const, priority: 0.9 },
+    { url: `${base}/en/tools`, lastModified: new Date(), changeFrequency: "weekly" as const, priority: 0.8 },
+    { url: `${base}/en/tools/kest-calculator`, lastModified: new Date(), changeFrequency: "monthly" as const, priority: 0.9 },
+    { url: `${base}/en/tools/meldefonds-comparison`, lastModified: new Date(), changeFrequency: "monthly" as const, priority: 0.9 },
+  ];
+
   return [
     { url: base, lastModified: new Date(), changeFrequency: "weekly", priority: 1 },
     { url: `${base}/preise`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.8 },
     { url: `${base}/ratgeber`, lastModified: new Date(), changeFrequency: "weekly", priority: 0.8 },
     { url: `${base}/en/ratgeber`, lastModified: new Date(), changeFrequency: "weekly", priority: 0.8 },
+    ...toolsPages,
     ...ratgeberPages,
     ...enRatgeberPages,
     ...brokerPages,

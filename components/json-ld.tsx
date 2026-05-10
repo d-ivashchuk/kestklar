@@ -154,6 +154,36 @@ export function JsonLdWebApplication() {
   );
 }
 
+export function JsonLdSoftwareApplication({
+  name,
+  url,
+  description,
+}: {
+  name: string;
+  url: string;
+  description: string;
+}) {
+  const data = {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    name,
+    url,
+    description,
+    applicationCategory: "FinanceApplication",
+    applicationSubCategory: "Calculator",
+    operatingSystem: "Web",
+    offers: { "@type": "Offer", price: "0", priceCurrency: "EUR" },
+    inLanguage: "de",
+    author: { "@type": "Organization", name: "KestKlar", url: "https://kestklar.at" },
+  };
+  return (
+    <script
+      type="application/ld+json"
+      dangerouslySetInnerHTML={{ __html: JSON.stringify(data) }}
+    />
+  );
+}
+
 export function JsonLdFaq() {
   const data = {
     "@context": "https://schema.org",

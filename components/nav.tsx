@@ -11,10 +11,16 @@ const ROUTE_MAP: Record<string, string> = {
   "/ratgeber/e1kv-ausfuellen": "/en/ratgeber/e1kv-guide",
   "/ratgeber/ausschuettungsgleiche-ertraege": "/en/ratgeber/deemed-distributions",
   "/ratgeber/kest-berechnen": "/en/ratgeber/how-to-calculate-kest",
+  "/tools": "/en/tools",
+  "/tools/kest-rechner": "/en/tools/kest-calculator",
+  "/tools/meldefonds-vergleich": "/en/tools/meldefonds-comparison",
   "/en/ratgeber": "/ratgeber",
   "/en/ratgeber/e1kv-guide": "/ratgeber/e1kv-ausfuellen",
   "/en/ratgeber/deemed-distributions": "/ratgeber/ausschuettungsgleiche-ertraege",
   "/en/ratgeber/how-to-calculate-kest": "/ratgeber/kest-berechnen",
+  "/en/tools": "/tools",
+  "/en/tools/kest-calculator": "/tools/kest-rechner",
+  "/en/tools/meldefonds-comparison": "/tools/meldefonds-vergleich",
 };
 
 function detectLangFromPath(pathname: string): "de" | "en" {
@@ -76,9 +82,13 @@ export function Nav() {
   const ratgeberHref = lang === "en" ? "/en/ratgeber" : "/ratgeber";
   const ratgeberLabel = lang === "en" ? "Guides" : "Ratgeber";
 
+  // Tools href adapts to current language.
+  const toolsHref = lang === "en" ? "/en/tools" : "/tools";
+
   const navLinks = [
     { href: "/#how-it-works", label: t.nav.howItWorks },
     { href: ratgeberHref, label: ratgeberLabel },
+    { href: toolsHref, label: t.nav.tools },
     { href: "/preise", label: t.nav.pricing },
     { href: "/#faq", label: t.nav.faq },
   ];
@@ -103,7 +113,7 @@ export function Nav() {
             <span className="font-sans text-sm font-medium text-foreground">KestKlar</span>
           </Link>
 
-          <nav className="hidden sm:flex items-center gap-6">
+          <nav className="hidden md:flex items-center gap-5">
             {navLinks.map((link) => (
               <Link
                 key={link.href}
@@ -116,7 +126,7 @@ export function Nav() {
           </nav>
 
           {/* Desktop right cluster */}
-          <div className="hidden sm:flex items-center gap-3">
+          <div className="hidden md:flex items-center gap-3">
             <div className="flex items-center border border-border text-xs">
               <button
                 onClick={() => handleLangSwitch("de")}
@@ -147,7 +157,7 @@ export function Nav() {
             aria-expanded={menuOpen}
             aria-controls="mobile-menu"
             onClick={() => setMenuOpen((v) => !v)}
-            className="sm:hidden inline-flex items-center justify-center w-9 h-9 -mr-2 text-foreground"
+            className="md:hidden inline-flex items-center justify-center w-9 h-9 -mr-2 text-foreground"
           >
             <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="square" aria-hidden="true">
               {menuOpen ? (
@@ -169,7 +179,7 @@ export function Nav() {
       {/* Mobile menu overlay */}
       <div
         id="mobile-menu"
-        className={`sm:hidden fixed inset-0 top-14 z-40 bg-background transition-opacity duration-200 ${
+        className={`md:hidden fixed inset-0 top-14 z-40 bg-background transition-opacity duration-200 ${
           menuOpen ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
         }`}
       >

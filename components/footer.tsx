@@ -22,6 +22,9 @@ export function Footer() {
         </div>
 
         <div className="mt-4 flex items-center justify-center gap-6">
+          <Link href="/tools" className="text-xs text-muted-foreground hover:text-foreground transition-colors">
+            Tools
+          </Link>
           <Link href="/datenschutz" className="text-xs text-muted-foreground hover:text-foreground transition-colors">
             Datenschutz
           </Link>

@@ -10,6 +10,7 @@ export const translations = {
       howItWorks: "So funktioniert's",
       faq: "FAQ",
       pricing: "Preise",
+      tools: "Tools",
       waitlist: "Warteliste",
     },
     hero: {
@@ -106,6 +107,7 @@ export const translations = {
       howItWorks: "How it works",
       faq: "FAQ",
       pricing: "Pricing",
+      tools: "Tools",
       waitlist: "Join waitlist",
     },
     hero: {
