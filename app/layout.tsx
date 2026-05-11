@@ -5,6 +5,7 @@ import { Nav } from "@/components/nav";
 import { Footer } from "@/components/footer";
 import { JsonLdOrganization, JsonLdWebApplication, JsonLdFaq } from "@/components/json-ld";
 import { Toaster } from "sonner";
+import { Analytics } from "@vercel/analytics/next";
 import "./globals.css";
 
 const inter = Inter({
@@ -72,6 +73,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           {children}
           <Footer />
           <Toaster position="bottom-center" richColors />
+          <Analytics />
         </LangProvider>
       </body>
     </html>
