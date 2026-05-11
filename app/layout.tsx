@@ -74,13 +74,11 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <Footer />
           <Toaster position="bottom-center" richColors />
         </LangProvider>
-        {process.env.NEXT_PUBLIC_CF_ANALYTICS_TOKEN && (
-          <Script
-            defer
-            src="https://static.cloudflareinsights.com/beacon.min.js"
-            data-cf-beacon={`{"token": "${process.env.NEXT_PUBLIC_CF_ANALYTICS_TOKEN}"}`}
-          />
-        )}
+        <Script
+          defer
+          src="https://static.cloudflareinsights.com/beacon.min.js"
+          data-cf-beacon='{"token": "984f607851734c41b2696cc7dfbd927b"}'
+        />
       </body>
     </html>
   );
