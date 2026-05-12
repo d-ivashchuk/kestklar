@@ -19,8 +19,8 @@ export default function DatenschutzPage() {
           </p>
           <address className="not-italic mt-3 text-sm text-muted-foreground leading-relaxed">
             Stackforge GmbH<br />
-            [Straße und Hausnummer]<br />
-            [PLZ] Wien, Österreich<br />
+            Schönbrunnerstraße 102<br />
+            1050 Wien, Österreich<br />
             E-Mail: <a href="mailto:datenschutz@kestklar.at" className="underline underline-offset-2 hover:text-foreground transition-colors">datenschutz@kestklar.at</a>
           </address>
         </Section>
