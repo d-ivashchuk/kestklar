@@ -52,6 +52,7 @@ export default function DatenschutzPage() {
             <li><strong>Loops.so</strong> — für den Versand von Wartelisten- und Transaktions-E-Mails. Es wird ausschließlich deine E-Mail-Adresse übertragen. Loops.so verarbeitet diese Daten gemäß eigenem Datenschutzvertrag.</li>
             <li><strong>Europäischer Hosting-Anbieter (Deutschland)</strong> — für die Speicherung von Transaktionsdaten auf Servern innerhalb der EU.</li>
             <li><strong>Europäischer KI-Anbieter</strong> — für die Plausibilitätsprüfung berechneter Steuerwerte. Es werden keine personenbezogenen Daten übertragen, nur anonymisierte Zahlenwerte.</li>
+            <li><strong>Cloudflare, Inc.</strong> — für cookielose Web-Analytik (Cloudflare Web Analytics). Es werden aggregierte Seitenaufruf-Daten erfasst (aufgerufene Seiten, Herkunftsland, Browser-Typ). Kein Cross-Site-Tracking, kein Fingerprinting, keine personenbezogenen Profile. Rechtsgrundlage: Art. 6 Abs. 1 lit. f DSGVO (berechtigtes Interesse an der Verbesserung des Dienstes). Weitere Informationen: <a href="https://www.cloudflare.com/privacypolicy/" target="_blank" rel="noopener noreferrer" className="underline underline-offset-2 hover:text-foreground transition-colors">cloudflare.com/privacypolicy</a>.</li>
           </ul>
           <p>
             Mit allen Auftragsverarbeitern bestehen Datenverarbeitungsverträge gemäß Art. 28 DSGVO.
@@ -87,6 +88,9 @@ export default function DatenschutzPage() {
         <Section title="7. Cookies und Tracking">
           <p>
             KestKlar verwendet keine Tracking-Cookies, keine Werbenetzwerke und kein Google Analytics. Technisch notwendige Session-Cookies (für die Anmeldung) werden ausschließlich für die Funktionsfähigkeit des Dienstes gesetzt und nicht an Dritte weitergegeben.
+          </p>
+          <p>
+            Für die Messung von Seitenaufrufen setzen wir <strong>Cloudflare Web Analytics</strong> ein — ein cookieloses Analyse-Tool ohne Cross-Site-Tracking und ohne Erstellung personenbezogener Profile. Es werden ausschließlich aggregierte, nicht personenbeziehbare Nutzungsstatistiken erfasst.
           </p>
         </Section>
 
