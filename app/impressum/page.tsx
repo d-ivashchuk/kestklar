@@ -17,8 +17,8 @@ export default function ImpressumPage() {
           <h2 className="font-serif text-lg text-foreground mb-4">Medieninhaber und Diensteanbieter</h2>
           <address className="not-italic space-y-1">
             <p className="text-foreground font-medium">Stackforge GmbH</p>
-            <p>[Straße und Hausnummer]</p>
-            <p>[PLZ] Wien</p>
+            <p>Schönbrunnerstraße 102</p>
+            <p>1050 Wien</p>
             <p>Österreich</p>
           </address>
         </div>
@@ -42,15 +42,11 @@ export default function ImpressumPage() {
             </div>
             <div className="flex gap-4">
               <dt className="w-40 shrink-0">Firmenbuchnummer</dt>
-              <dd className="text-foreground">[FN XXXXXX x]</dd>
+              <dd className="text-foreground">FN 645515 m</dd>
             </div>
             <div className="flex gap-4">
               <dt className="w-40 shrink-0">Firmenbuchgericht</dt>
               <dd className="text-foreground">Handelsgericht Wien</dd>
-            </div>
-            <div className="flex gap-4">
-              <dt className="w-40 shrink-0">UID-Nummer</dt>
-              <dd className="text-foreground">[ATU XXXXXXXX]</dd>
             </div>
             <div className="flex gap-4">
               <dt className="w-40 shrink-0">Geschäftsführung</dt>
