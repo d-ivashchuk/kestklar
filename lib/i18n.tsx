@@ -83,7 +83,7 @@ export const translations = {
         },
         {
           q: "Woher kommen die ETF-Fondsdaten?",
-          a: "Von der ÖEKB — einer öffentlichen österreichischen Institution die alle bei der Finanzbehörde gemeldeten Fonds und deren jährliche Steuerdaten veröffentlicht. KestKlar ruft diese Daten automatisch ab, damit du das nicht selbst recherchieren musst.",
+          a: "Von der OeKB (Oesterreichische Kontrollbank) — dem gesetzlich beauftragten Meldedienstleister für Investmentfonds in Österreich. Die OeKB ist ein privatrechtliches Kreditinstitut das u. a. gesetzliche Mandate für die Republik Österreich ausübt, darunter die Veröffentlichung der jährlichen Steuerdaten aller gemeldeten Fonds. KestKlar ruft diese Daten automatisch ab, damit du das nicht selbst recherchieren musst.",
         },
         {
           q: "Ist KestKlar eine Steuerberatung?",
@@ -180,7 +180,7 @@ export const translations = {
         },
         {
           q: "Where does the ETF fund data come from?",
-          a: "From the ÖEKB — an Austrian public institution that publishes tax data for all registered funds each year. KestKlar fetches this automatically so you don't have to look it up yourself.",
+          a: "From the OeKB (Oesterreichische Kontrollbank) — the statutory reporting body for investment funds in Austria. The OeKB is a private credit institution that exercises statutory mandates for the Republic of Austria, including publishing annual tax data for all registered funds. KestKlar fetches this automatically so you don't have to look it up yourself.",
         },
         {
           q: "Is KestKlar a tax advisory service?",
